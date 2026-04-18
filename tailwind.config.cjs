@@ -47,6 +47,9 @@ module.exports = {
       fontFamily: {
         sans: ['Geist Variable', 'sans-serif'],
         heading: ['Geist Variable', 'sans-serif'],
+        raleway: ['"Raleway"', 'sans-serif'],
+        unbounded: ['"Unbounded"', 'sans-serif'],
+        rubik: ['"Rubik"', 'sans-serif'],
       },
     },
   },
