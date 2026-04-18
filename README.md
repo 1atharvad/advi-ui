@@ -37,13 +37,23 @@ npm run build:lib
 
 ---
 
-## Usage
-
-Install the package:
+## Installation
 
 ```bash
 npm install advi-ui
 ```
+
+```bash
+yarn add advi-ui
+```
+
+```bash
+pnpm add advi-ui
+```
+
+> **Peer dependencies** — make sure your project has `react >= 18` and `react-dom >= 18` installed.
+
+## Usage
 
 Import components and styles:
 
@@ -55,6 +65,8 @@ export default function App() {
   return <Button variant="outline">Hello</Button>;
 }
 ```
+
+The style import brings in all component styles, CSS custom properties (design tokens), and the Tailwind base layer. Add it once at the root of your app.
 
 ---
 
