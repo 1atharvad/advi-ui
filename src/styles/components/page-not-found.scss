@@ -1,0 +1,89 @@
+@layer components {
+  .vi-pnf {
+    @apply relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-background px-4;
+
+    &-bg-gradient {
+      @apply absolute inset-0 opacity-40 dark:opacity-15;
+
+      background: linear-gradient(135deg, rgba(247, 173, 69, 0.15) 0%, transparent 50%, rgba(101, 124, 106, 0.15) 100%);
+    }
+
+    &-orb {
+      @apply absolute h-64 w-64 animate-pulse rounded-full blur-3xl opacity-70 dark:opacity-40;
+
+      &-gold {
+        @extend .vi-pnf-orb;
+        @apply top-1/4 left-1/4;
+
+        background-color: rgba(247, 173, 69, 0.3);
+      }
+
+      &-green {
+        @extend .vi-pnf-orb;
+        @apply bottom-1/4 right-1/4;
+
+        background-color: rgba(162, 185, 167, 0.3);
+        animation-delay: 1s;
+      }
+    }
+
+    &-content {
+      @apply relative z-10 flex flex-col items-center gap-6 text-center;
+    }
+
+    &-404-wrap {
+      @apply relative font-rubik;
+    }
+
+    &-404 {
+      @apply text-9xl font-black tracking-wider bg-clip-text text-transparent animate-in fade-in slide-in-from-bottom-4 duration-700;
+      background-image: linear-gradient(135deg, #BB3E00 0%, #F7AD45 40%, #657C6A 70%, #A2B9A7 100%);
+    }
+
+    &-404-glow {
+      @apply absolute inset-0 -z-10 blur-2xl opacity-50 dark:opacity-30;
+      background: linear-gradient(135deg, #F7AD45, #657C6A);
+    }
+
+    &-message {
+      @apply space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150;
+    }
+
+    &-title {
+      @apply text-2xl font-semibold text-foreground;
+    }
+
+    &-subtitle {
+      @apply max-w-md text-base text-muted-foreground;
+    }
+
+    &-actions {
+      @apply flex flex-col sm:flex-row gap-3 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300;
+    }
+
+    &-btn {
+      @apply relative overflow-hidden text-white border-0 shadow-lg hover:shadow-xl transition-shadow;
+
+      background: linear-gradient(135deg, #F7AD45 0%, #BB3E00 100%);
+      box-shadow: 0 10px 40px -10px rgba(187, 62, 0, 0.3);
+
+      a {
+        @apply hover:opacity-90 transition-opacity;
+      }
+
+      &-inner {
+        @apply relative z-10 flex items-center gap-2;
+      }
+
+      svg {
+        @apply transition-transform group-hover:-translate-x-1;
+      }
+    }
+
+    &-divider {
+      @apply absolute bottom-0 left-0 right-0 h-px opacity-30 dark:opacity-20;
+
+      background: linear-gradient(90deg, transparent, #F7AD45, #657C6A, transparent);
+    }
+  }
+}

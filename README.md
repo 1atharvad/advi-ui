@@ -10,11 +10,11 @@ A personal React component library built with **Tailwind CSS**, **SCSS**, and **
 |------|---------|
 | React 19 + TypeScript | Component authoring |
 | Vite | Build & dev server |
-| Tailwind CSS + SCSS | Styling |
+| Tailwind CSS + SCSS | Styling (BEM `vi-*` namespace) |
 | class-variance-authority | Variant management |
 | Radix UI / Base UI | Accessible primitives |
 | Lucide React | Icons |
-| Storybook 10 | Component explorer |
+| Storybook 10 | Component explorer with light/dark toggle |
 | Vitest + Playwright | Testing |
 
 ---
@@ -53,9 +53,11 @@ pnpm add advi-ui
 
 > **Peer dependencies** — make sure your project has `react >= 18` and `react-dom >= 18` installed.
 
+---
+
 ## Usage
 
-Import components and styles:
+Import components and styles once at the root of your app:
 
 ```tsx
 import { Button } from "advi-ui";
@@ -66,7 +68,19 @@ export default function App() {
 }
 ```
 
-The style import brings in all component styles, CSS custom properties (design tokens), and the Tailwind base layer. Add it once at the root of your app.
+The style import brings in:
+- All component styles (SCSS, BEM `vi-*` namespace)
+- CSS custom properties for light and dark mode
+- Raleway, Unbounded, and Rubik fonts (self-hosted via `@fontsource`)
+- Tailwind base layer
+
+### Dark mode
+
+Add the `dark` class to your `<html>` element to activate dark mode:
+
+```ts
+document.documentElement.classList.toggle("dark");
+```
 
 ---
 
@@ -74,34 +88,39 @@ The style import brings in all component styles, CSS custom properties (design t
 
 | Component | Description |
 |-----------|-------------|
-| `Button` | Multiple variants: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link` |
-| `Header` | Responsive nav header with mobile drawer |
-| `Loading` | Animated spinner with custom text |
-| `Toast` | Lightweight toast notifications — success, error, warning, info |
-| `Card` | Container with header/content/footer slots |
-| `Dialog` | Accessible modal dialog |
-| `Input` | Styled text input |
-| `Textarea` | Multi-line input |
-| `Label` | Form label |
+| `Button` | Variants: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link` · Sizes: `default`, `sm`, `lg`, `icon` |
+| `Header` | Responsive nav header with logo slot |
+| `Loading` | Animated spinner with optional custom text |
+| `Toast` | Notifications — `default`, `success`, `error`, `warning`, `info` |
+| `Card` | Container with `CardImage`, `CardWrapper`, `CardTitle`, `CardDescription`, `CardContent` slots |
+| `Dialog` | Accessible modal dialog (Radix UI) |
+| `Input` | Text input with optional label, description, and validation |
+| `Textarea` | Multi-line input with optional mask, label, description, and validation |
 | `Link` | Internal and external link wrapper |
 | `Modal` | Full-featured modal overlay |
-| `PageAside` | Sidebar layout primitive |
-| `PageNotFound` | 404 page component |
+| `PageAside` | Sidebar layout with nav, user display, and logout slot |
+| `PageNotFound` | Animated 404 page |
 
 ---
 
-## Project Structure
+## Design Tokens
 
-```
-src/
-├── components/
-│   ├── ui/          # Core UI primitives
-│   └── PageNotFound.tsx
-├── stories/
-│   ├── ui/          # Storybook stories for UI components
-│   └── components/  # Storybook stories for page-level components
-└── styles/          # SCSS source files
-```
+All colors and typography are defined as CSS custom properties in `src/styles/global.scss` and override-able via the `.dark` class. SCSS variables live in `src/styles/_variables.scss`.
+
+### Fonts
+
+| Tailwind class | Font |
+|----------------|------|
+| `font-raleway` | Raleway (default body font) |
+| `font-unbounded` | Unbounded |
+| `font-rubik` | Rubik |
+| `font-sans` | Geist Variable |
+
+---
+
+## All Components
+
+`Button` · `Card` · `CardWrapper` · `CardImage` · `CardTitle` · `CardDescription` · `CardContent` · `Dialog` · `Header` · `Input` · `Link` · `Loading` · `Modal` · `PageAside` · `PageNotFound` · `Textarea` · `Toast`
 
 ---
 
@@ -122,3 +141,13 @@ src/
 ## License
 
 MIT
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Atharva Devasthali**
+
+*Web Developer | Python Engineer | UI/UX Enthusiast*
+
+</div>

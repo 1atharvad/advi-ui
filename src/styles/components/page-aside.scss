@@ -1,0 +1,25 @@
+@layer components {
+  .vi-aside {
+    @apply w-64 bg-white dark:bg-neutral-800 shadow-md p-4 flex flex-col justify-between h-screen;
+
+    &-header {
+      @apply mb-3 px-2 pt-1 pb-4 border-b border-border;
+    }
+
+    &-title {
+      @apply text-xl font-bold tracking-tight text-gray-900 dark:text-white;
+    }
+
+    &-nav {
+      @apply flex flex-col space-y-1 mt-2;
+    }
+
+    &-username {
+      @apply text-xs text-muted-foreground px-1 mb-2 truncate;
+    }
+
+    &-logout {
+      @apply w-full justify-start;
+    }
+  }
+}

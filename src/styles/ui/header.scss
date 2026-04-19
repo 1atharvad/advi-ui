@@ -1,0 +1,29 @@
+.vi-header {
+  @apply w-full border-b bg-white/80 dark:bg-gray-950/80 backdrop-blur-md sticky top-0 z-50 transition-colors;
+
+  &-logo {
+    &-wrapper {
+      @apply flex items-center gap-2;
+    }
+
+    &-link {
+      @apply flex items-center gap-2;
+    }
+
+    &-icon {
+      @apply w-4 h-4 text-white;
+
+      &-wrapper {
+        @apply p-1.5 rounded-lg bg-gradient-to-br from-[#F7AD45] to-[#BB3E00] transition-shadow;
+      }
+    }
+
+    &-text {
+      @apply text-xl font-bold;
+    }
+  }
+
+  &-desktop {
+    @apply mx-auto flex max-w-7xl items-center justify-between px-6 py-4;
+  }
+}

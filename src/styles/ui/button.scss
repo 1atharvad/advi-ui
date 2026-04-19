@@ -1,0 +1,75 @@
+@layer components {
+  .vi-btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap;
+    @apply rounded-md text-sm font-medium transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+    @apply [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0;
+    @apply w-fit;
+
+    &:focus {
+      @apply border-[1px];
+      // margin: 0 -1px;
+    }
+
+    &-logo {
+      @apply w-[24px] h-[24px] ml-[10px];
+    }
+
+    &-variant {
+      &-default {
+        @apply bg-primary text-primary-foreground border-2 rounded-[30px];
+        @apply hover:bg-primary/90;
+      }
+
+      &-destructive {
+        @apply bg-destructive text-destructive-foreground border-2 rounded-[30px];
+        @apply hover:bg-destructive/90;
+      }
+
+      &-outline {
+        @apply border border-input bg-background rounded-[30px];
+        @apply hover:bg-accent hover:text-accent-foreground;
+      }
+
+      &-secondary {
+        @apply bg-secondary text-secondary-foreground border-2 rounded-[30px];
+        @apply hover:bg-secondary/80;
+      }
+
+      &-ghost {
+        @apply hover:bg-accent hover:text-accent-foreground border-[1px] border-transparent;
+
+        &:focus {
+          @apply border-inherit;
+        }
+      }
+
+      &-link {
+        @apply text-primary underline-offset-4;
+        @apply hover:underline;
+      }
+    }
+
+    &-size {
+      &-default {
+        @apply h-10 px-4;
+        @apply text-sm font-normal tracking-[1px];
+      }
+
+      &-sm {
+        @apply h-8 px-3;
+        @apply text-xs font-normal tracking-[1px];
+      }
+
+      &-lg {
+        @apply min-h-[48px] px-[24px] py-[12px];
+        @apply text-base font-medium tracking-[1px];
+      }
+
+      &-icon {
+        @apply h-9 w-9;
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+@layer components {
+  .vi-link {
+    @apply text-primary hover:underline underline-offset-4 cursor-pointer;
+  }
+}
