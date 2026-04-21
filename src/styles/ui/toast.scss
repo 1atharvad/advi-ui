@@ -30,98 +30,105 @@
     &[data-swipe='end'] {
       animation: swipeOut 100ms ease-out;
     }
-  }
 
-  .vi-toast-variant {
-    &-default {
-      @apply border-l-4 border-l-blue-500;
+    &.vi-toast-variant {
+      &-default {
+        @apply border-l-4 border-l-blue-500;
 
-      .vi-toast-title,
-      .vi-toast-description-colored {
-        @apply text-slate-900 dark:text-slate-50;
+        .vi-toast-title,
+        .vi-toast-description-colored {
+          @apply text-slate-900 dark:text-slate-50;
+        }
+      }
+
+      &-success {
+        @apply border-l-4 border-l-green-500;
+
+        .vi-toast-title,
+        .vi-toast-description-colored {
+          @apply text-green-700 dark:text-green-400;
+        }
+      }
+
+      &-error {
+        @apply border-l-4 border-l-red-500;
+
+        .vi-toast-title,
+        .vi-toast-description-colored {
+          @apply text-red-700 dark:text-red-400;
+        }
+      }
+
+      &-warning {
+        @apply border-l-4 border-l-orange-500;
+
+        .vi-toast-title,
+        .vi-toast-description-colored {
+          @apply text-orange-700 dark:text-orange-400;
+        }
+      }
+
+      &-info {
+        @apply border-l-4 border-l-sky-500;
+
+        .vi-toast-title,
+        .vi-toast-description-colored {
+          @apply text-sky-700 dark:text-sky-400;
+        }
       }
     }
 
-    &-success {
-      @apply border-l-4 border-l-green-500;
+    &-content {
+      @apply flex flex-col gap-1;
+    }
 
-      .vi-toast-title,
-      .vi-toast-description-colored {
-        @apply text-green-700 dark:text-green-400;
+    &-title {
+      @apply text-sm font-semibold leading-5;
+    }
+
+    &-description {
+      @apply text-sm leading-5 opacity-90 text-slate-600 dark:text-slate-400;
+
+      &-colored {
+        @apply font-semibold opacity-100;
       }
     }
 
-    &-error {
-      @apply border-l-4 border-l-red-500;
+    &-viewport-left {
+      @apply sm:right-auto sm:left-0;
 
-      .vi-toast-title,
-      .vi-toast-description-colored {
-        @apply text-red-700 dark:text-red-400;
+      .vi-toast[data-state='open'] {
+        animation: slideInLeft 150ms cubic-bezier(0.16, 1, 0.3, 1);
       }
-    }
 
-    &-warning {
-      @apply border-l-4 border-l-orange-500;
-
-      .vi-toast-title,
-      .vi-toast-description-colored {
-        @apply text-orange-700 dark:text-orange-400;
-      }
-    }
-
-    &-info {
-      @apply border-l-4 border-l-sky-500;
-
-      .vi-toast-title,
-      .vi-toast-description-colored {
-        @apply text-sky-700 dark:text-sky-400;
+      .vi-toast[data-swipe='end'] {
+        animation: swipeOutLeft 100ms ease-out;
       }
     }
   }
+}
 
-  .vi-toast-content {
-    @apply flex flex-col gap-1;
-  }
+@keyframes hide {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
 
-  .vi-toast-title {
-    @apply text-sm font-semibold leading-5;
-  }
+@keyframes slideIn {
+  from { transform: translateX(calc(100% + 1rem)); }
+  to { transform: translateX(0); }
+}
 
-  .vi-toast-description {
-    @apply text-sm leading-5 opacity-90 text-slate-600 dark:text-slate-400;
-  }
+@keyframes slideInLeft {
+  from { transform: translateX(calc(-100% - 1rem)); }
+  to { transform: translateX(0); }
+}
 
-  .vi-toast-description-colored {
-    @apply font-semibold opacity-100;
-  }
+@keyframes swipeOut {
+  from { transform: translateX(var(--radix-toast-swipe-end-x)); }
+  to { transform: translateX(calc(100% + 1rem)); }
+}
 
-  @keyframes hide {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideIn {
-    from {
-      transform: translateX(calc(100% + 1rem));
-    }
-
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes swipeOut {
-    from {
-      transform: translateX(var(--radix-toast-swipe-end-x));
-    }
-
-    to {
-      transform: translateX(calc(100% + 1rem));
-    }
-  }
+@keyframes swipeOutLeft {
+  from { transform: translateX(var(--radix-toast-swipe-end-x)); }
+  to { transform: translateX(calc(-100% - 1rem)); }
 }

@@ -1,0 +1,27 @@
+@use "palette" as *;
+
+// CSS custom properties — for CSS/JS consumers
+// SCSS consumers can use the raw variables from _palette.scss directly
+:root {
+  // Brand
+  --advi-color-primary:        #{$orange-500};
+  --advi-color-primary-hover:  #{$orange-400};
+  --advi-color-primary-muted:  #{$orange-200};
+
+  // Surface
+  --advi-color-bg:             #{$teal-800};
+  --advi-color-bg-elevated:    #{$teal-700};
+  --advi-color-bg-input:       #{$teal-600};
+
+  // Border
+  --advi-color-border:         #{$teal-500};
+  --advi-color-border-input:   #{$teal-400};
+
+  // Text
+  --advi-color-text:           #{$teal-100};
+  --advi-color-text-muted:     #{$teal-300};
+  --advi-color-text-inverse:   #{$teal-800};
+
+  // Accent
+  --advi-color-accent:         #{$teal-200};
+}

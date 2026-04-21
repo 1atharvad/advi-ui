@@ -15,8 +15,10 @@ interface ToastItem {
 // Global toast state
 let globalAddToast: ((toast: Omit<ToastItem, "id">) => void) | null = null
 
+type ToastPosition = "left" | "right"
+
 // Provider Component
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
+export const ToastProvider = ({ children, position = "right" }: { children: ReactNode; position?: ToastPosition }) => {
   const [toasts, setToasts] = useState<ToastItem[]>([])
 
   const addToast = useCallback((toast: Omit<ToastItem, "id">) => {
@@ -41,7 +43,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   return (
     <>
       {children}
-      <div className="vi-toast-viewport">
+      <div className={cn("vi-toast-viewport", position === "left" && "vi-toast-viewport-left")}>
         {toasts.map((toast) => (
           <Toast key={toast.id} {...toast} />
         ))}

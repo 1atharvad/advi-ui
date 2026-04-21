@@ -1,0 +1,38 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="ADVI-UI/Introduction" />
+
+# ADVI-UI
+
+A personal React component library built with **React**, **TypeScript**, **Tailwind CSS**, **SCSS**, and **Storybook**.
+
+## Install
+
+```bash
+npm install advi-ui
+```
+
+```ts
+import { Button, Toast, Header } from 'advi-ui';
+import 'advi-ui/styles';
+```
+
+## Components
+
+**UI primitives** — Button, Card, Input, Textarea, Link, Dialog, Modal, Toast, Loading
+
+**Layout & interaction** — Header, ScrollAnimationBtn, PageNotFound, PageAside
+
+## Theming
+
+Ships a dark teal → burnished orange design token system.
+
+```scss
+@use 'advi-ui/themes/palette' as advi;
+
+.element {
+  color: advi.$orange-500;
+}
+```
+
+Or via CSS custom properties after importing `advi-ui/themes`.

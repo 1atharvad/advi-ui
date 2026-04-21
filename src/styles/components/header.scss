@@ -1,5 +1,6 @@
 .vi-header {
-  @apply w-full border-b bg-white/80 dark:bg-gray-950/80 backdrop-blur-md sticky top-0 z-50 transition-colors;
+  @apply fixed top-0 w-full z-[1000] backdrop-blur-[5px];
+  @apply bg-[#d8d8d8]/40 dark:bg-[#d8d8d8]/20;
 
   &-logo {
     &-wrapper {
@@ -21,6 +22,10 @@
     &-text {
       @apply text-xl font-bold;
     }
+  }
+
+  &-mobile {
+    @apply flex items-center justify-between px-4 py-3 lg:hidden;
   }
 
   &-desktop {

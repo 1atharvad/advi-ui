@@ -1,5 +1,17 @@
 @layer components {
   .vi-link {
     @apply text-primary hover:underline underline-offset-4 cursor-pointer;
+
+    &-logo-wrapper {
+      @apply flex items-center gap-2.5;
+
+      .vi-logo {
+        @apply h-6 w-auto;
+
+        &-text {
+          @apply font-bold text-base;
+        }
+      }
+    }
   }
 }

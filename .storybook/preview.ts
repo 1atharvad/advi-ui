@@ -4,6 +4,7 @@ import '@fontsource/rubik';
 import '../src/styles/global.scss';
 import type { Preview } from '@storybook/react-vite';
 import { withThemeByClassName } from '@storybook/addon-themes';
+import { adviDocsTheme } from './theme';
 
 const preview: Preview = {
   decorators: [
@@ -12,12 +13,15 @@ const preview: Preview = {
         light: '',
         dark: 'dark',
       },
-      defaultTheme: 'light',
+      defaultTheme: 'dark',
       parentSelector: 'html',
     }),
   ],
   parameters: {
     backgrounds: { disable: true },
+    docs: {
+      theme: adviDocsTheme,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

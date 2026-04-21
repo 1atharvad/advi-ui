@@ -1,0 +1,23 @@
+@use "palette" as *;
+
+// Storybook manager sidebar branding
+.sidebar-header img[alt="ADVI-UI"] {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.sidebar-header a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-header a::after {
+  content: "ADVI-UI";
+  font-size: 14px;
+  font-weight: 700;
+  color: #{$teal-100};
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}

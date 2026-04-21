@@ -1,10 +1,10 @@
-import React, { type ReactNode } from "react";
+import React, { isValidElement, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export interface Link {
   url: string;
   text?: string;
-  is_external_link?: boolean;
+  isExternal?: boolean;
 }
 
 type LinkProps = {
@@ -14,9 +14,20 @@ type LinkProps = {
   children?: ReactNode;
 }
 
+type ImageObj = { url: string; alt: string };
+const isImageObj = (img: unknown): img is ImageObj =>
+  typeof img === "object" && img !== null && "url" in img;
+
+export type LogoLinkProps = {
+  name: string;
+  image: ImageObj | ReactNode;
+  link: Link;
+  className?: string;
+}
+
 export const Link = ({ link, className, noBaseClass=false, children }: LinkProps) => (
   <>
-    {link.is_external_link ? (
+    {link.isExternal ? (
       <a href={link.url}
           target="_blank"
           rel="noopener noreferrer"
@@ -32,4 +43,13 @@ export const Link = ({ link, className, noBaseClass=false, children }: LinkProps
       </a>
     )}
   </>
+);
+
+export const LogoLink = ({ name, image, link, className }: LogoLinkProps) => (
+  <Link link={link} className={cn("vi-link-logo-wrapper", className)}>
+    {isImageObj(image)
+      ? <img src={image.url} alt={image.alt} className="vi-logo" />
+      : isValidElement(image) ? image : null}
+    <span className="vi-logo-text">{name}</span>
+  </Link>
 );

@@ -1,9 +1,12 @@
-@use "@/styles/ui/button.scss";
-@use "@/styles/ui/card.scss";
-@use "@/styles/ui/link.scss";
-@use "@/styles/ui/toast.scss";
-@use "@/styles/components/page-aside.scss";
-@use "@/styles/components/page-not-found.scss";
+@use "./ui/button.scss";
+@use "./ui/card.scss";
+@use "./ui/link.scss";
+@use "./ui/modal.scss";
+@use "./ui/toast.scss";
+@use "./components/header.scss";
+@use "./components/page-aside.scss";
+@use "./components/page-not-found.scss";
+@use "./components/scroll-animation-btn.scss";
 
 @tailwind base;
 @tailwind components;

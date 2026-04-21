@@ -1,0 +1,63 @@
+@layer components {
+  .vi-modal-overlay {
+    @apply fixed inset-0 z-50 bg-black/80;
+  }
+
+  .vi-modal-content {
+    // Animation from/to values — customise per modal via CSS or SCSS
+    --modal-opacity: 0, 1;
+    --modal-scale: 0.95, 1;
+    --modal-translate-x: -50, -50;
+    --modal-translate-y: -50, -50;
+
+    @apply fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2;
+    @apply gap-4 border bg-background p-6 shadow-lg;
+  }
+
+  .vi-modal-slide-right {
+    --modal-opacity: 0, 1;
+    --modal-scale: 1, 1;
+    --modal-translate-x: 100, 0;
+    --modal-translate-y: 0, 0;
+
+    @apply fixed left-auto right-0 top-0 z-50 flex flex-col h-full w-full max-w-sm;
+    @apply border-l bg-background p-6 shadow-lg;
+  }
+
+  .vi-modal-slide-left {
+    --modal-opacity: 0, 1;
+    --modal-scale: 1, 1;
+    --modal-translate-x: -100, 0;
+    --modal-translate-y: 0, 0;
+
+    @apply fixed left-0 top-0 z-50 flex flex-col h-full w-full max-w-sm;
+    @apply border-r bg-background p-6 shadow-lg;
+  }
+
+  .vi-modal-close {
+    @apply absolute right-4 top-4 rounded-sm opacity-70;
+    @apply ring-offset-background transition-opacity hover:opacity-100;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+    @apply disabled:pointer-events-none;
+  }
+
+  .vi-modal-header {
+    @apply flex flex-col space-y-1.5 text-center sm:text-left;
+  }
+
+  .vi-modal-title {
+    @apply text-lg font-semibold leading-none tracking-tight;
+  }
+
+  .vi-modal-description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .vi-modal-body {
+    @apply py-4;
+  }
+
+  .vi-modal-footer {
+    @apply flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2;
+  }
+}
