@@ -1,0 +1,80 @@
+@layer components {
+  .vi-select {
+    &-root {
+      @apply flex flex-col gap-1 w-full;
+    }
+
+    &-label {
+      @apply text-sm font-normal leading-none;
+    }
+
+    &-wrapper {
+      @apply relative w-full;
+    }
+
+    &-trigger {
+      @apply flex h-9 w-full items-center justify-between;
+      @apply rounded-md border border-input bg-transparent px-3 py-1;
+      @apply text-sm shadow-sm transition-colors gap-2.5;
+      @apply placeholder:text-muted-foreground;
+      @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+      @apply disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-auto;
+      @apply hover:bg-transparent hover:text-inherit;
+      @apply cursor-pointer;
+
+      &:focus {
+        border-color: hsl(var(--input));
+      }
+    }
+
+    &-placeholder {
+      @apply text-muted-foreground;
+    }
+
+    &-icon {
+      @apply h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200;
+
+      &-open {
+        @apply rotate-180;
+      }
+    }
+
+    &-dropdown {
+      @apply absolute z-50 mt-1 w-full;
+      @apply rounded-md border border-input bg-popover shadow-md;
+      @apply overflow-auto max-h-60;
+      @apply py-1;
+    }
+
+    &-option {
+      @apply flex items-center gap-2 px-3 py-2;
+      @apply text-sm cursor-pointer select-none;
+      @apply text-popover-foreground;
+      @apply transition-colors;
+
+      &-active {
+        @apply bg-accent text-accent-foreground;
+      }
+
+      &-selected {
+        @apply font-medium;
+
+        .vi-select-check {
+          @apply opacity-100;
+        }
+      }
+
+      &-disabled {
+        @apply opacity-50 cursor-not-allowed pointer-events-none;
+      }
+    }
+
+    &-check {
+      @apply h-4 w-4 shrink-0 opacity-0;
+    }
+
+    &-description {
+      @apply text-xs text-muted-foreground;
+    }
+  }
+}

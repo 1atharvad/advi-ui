@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, type ReactNode } from "react";
+import { useEffect, useRef, useCallback, useState, useId, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { gsap } from "@/lib/gsap";
@@ -13,6 +13,7 @@ interface ModalProps {
   children?: ReactNode;
   footer?: ReactNode;
   className?: string;
+  modalRootSelector?: string,
   duration?: number;
 }
 
@@ -31,11 +32,23 @@ export const Modal = ({
   children,
   footer,
   className,
+  modalRootSelector,
   duration = 1,
 }: ModalProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
+  const descId = useId();
+  const [modalRootEl, setModalRootEl] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setModalRootEl(
+      (modalRootSelector ? document.querySelector<HTMLElement>(modalRootSelector) : null) ?? document.body
+    );
+  }, [modalRootSelector]);
 
   const createTimeline = useCallback(() => {
     const overlay = overlayRef.current;
@@ -60,7 +73,7 @@ export const Modal = ({
 
   useEffect(() => {
     tlRef.current = createTimeline();
-  }, [createTimeline]);
+  }, [createTimeline, modalRootEl]);
 
   useEffect(() => {
     if (!tlRef.current) return;
@@ -69,7 +82,26 @@ export const Modal = ({
     } else {
       tlRef.current.reverse();
     }
+  }, [open, modalRootEl]);
+
+  useEffect(() => {
+    if (open) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      closeRef.current?.focus();
+    } else {
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
+    }
   }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onOpenChange(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, onOpenChange]);
 
   return (
     <>
@@ -78,7 +110,7 @@ export const Modal = ({
           {trigger}
         </span>
       )}
-      {createPortal(
+      {modalRootEl && createPortal(
         <>
           <div
             ref={overlayRef}
@@ -90,10 +122,13 @@ export const Modal = ({
             ref={contentRef}
             role="dialog"
             aria-modal="true"
-            aria-hidden={!open}
+            inert={!open ? true : undefined}
+            aria-labelledby={title ? titleId : undefined}
+            aria-describedby={description ? descId : undefined}
             className={cn(className)}
           >
             <button
+              ref={closeRef}
               className="vi-modal-close"
               onClick={() => onOpenChange(false)}
               aria-label="Close"
@@ -104,8 +139,8 @@ export const Modal = ({
 
             {(title || description) && (
               <div className="vi-modal-header">
-                {title && <h2 className="vi-modal-title">{title}</h2>}
-                {description && <p className="vi-modal-description">{description}</p>}
+                {title && <h2 id={titleId} className="vi-modal-title">{title}</h2>}
+                {description && <p id={descId} className="vi-modal-description">{description}</p>}
               </div>
             )}
 
@@ -114,7 +149,7 @@ export const Modal = ({
             {footer && <div className="vi-modal-footer">{footer}</div>}
           </div>
         </>,
-        document.body
+        modalRootEl
       )}
     </>
   );

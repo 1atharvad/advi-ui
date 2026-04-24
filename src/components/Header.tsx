@@ -11,9 +11,10 @@ interface HeaderProps {
     link: Link;
   };
   ctaLinks?: Link[];
+  modalRootSelector?: string;
 }
 
-export const Header = ({ logo, ctaLinks = [] }: HeaderProps) => {
+export const Header = ({ logo, ctaLinks = [], modalRootSelector }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -25,7 +26,8 @@ export const Header = ({ logo, ctaLinks = [] }: HeaderProps) => {
             open={isMenuOpen}
             onOpenChange={setIsMenuOpen}
             title={logo.name}
-            className="vi-modal-slide-right z-[1000]"
+            className="vi-modal-slide-right z-[1001]"
+            modalRootSelector={modalRootSelector}
             trigger={
               <Button variant="ghost" title="Menu Button" aria-label="Open menu">
                 <Menu size={24} aria-hidden="true" />

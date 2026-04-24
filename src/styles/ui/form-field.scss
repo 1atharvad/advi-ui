@@ -1,0 +1,21 @@
+@layer components {
+  .vi-form-field {
+    @apply flex flex-col gap-1 w-full;
+
+    &-label {
+      @apply text-sm font-normal leading-none;
+    }
+
+    &-required {
+      @apply text-destructive;
+    }
+
+    &-description {
+      @apply text-xs text-muted-foreground;
+    }
+
+    &-error {
+      @apply text-xs text-destructive font-medium;
+    }
+  }
+}

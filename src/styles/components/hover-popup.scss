@@ -1,0 +1,42 @@
+@layer components {
+  .vi-hover-popup {
+    &-wrapper {
+      @apply relative inline-flex items-center;
+    }
+
+    &-main-text {
+      @apply cursor-default underline decoration-dotted underline-offset-2;
+      @apply decoration-muted-foreground text-foreground opacity-100;
+      @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm;
+
+      // Trigger stays fully visible when the popup is open
+      .vi-hover-popup-wrapper:hover &,
+      .vi-hover-popup-wrapper:focus-within & {
+        @apply opacity-100;
+      }
+    }
+
+    &-modal {
+      @apply absolute z-50 w-max max-w-xs;
+      @apply top-[calc(100%+10px)] left-1/2 -translate-x-1/2;
+      @apply rounded-md border border-border bg-popover text-popover-foreground;
+      @apply px-3 py-2 text-sm shadow-md;
+      @apply invisible opacity-0 pointer-events-none -translate-y-1;
+      @apply transition-[opacity,transform] duration-200 ease-out;
+
+      // Arrow pointing up toward the trigger
+      &::after {
+        content: '';
+        @apply absolute bottom-[calc(100%-5px)] left-1/2 -translate-x-1/2 rotate-45;
+        @apply h-2 w-2 bg-popover;
+        border: 1px solid hsl(var(--border));
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+      }
+
+      &-visible {
+        @apply visible opacity-100 pointer-events-auto translate-y-0;
+      }
+    }
+  }
+}

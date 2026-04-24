@@ -1,9 +1,16 @@
 @use "./ui/button.scss";
+@use "./ui/form-field.scss";
 @use "./ui/card.scss";
 @use "./ui/link.scss";
 @use "./ui/modal.scss";
+@use "./ui/radio.scss";
+@use "./ui/select.scss";
+@use "./ui/multi-select.scss";
 @use "./ui/toast.scss";
+@use "./components/circular-progress-bar.scss";
+@use "./components/footer.scss";
 @use "./components/header.scss";
+@use "./components/hover-popup.scss";
 @use "./components/page-aside.scss";
 @use "./components/page-not-found.scss";
 @use "./components/scroll-animation-btn.scss";
@@ -67,4 +74,8 @@
   html {
     @apply font-sans;
   }
+}
+
+.sbdocs-preview {
+  background-color: hsl(var(--background)) !important;
 }

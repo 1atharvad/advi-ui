@@ -5,6 +5,13 @@ const meta: Meta<typeof Header> = {
   title: "Components/Header",
   component: Header,
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <div id="header-modal-root" style={{ position: "relative", height: "100%" }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "fullscreen",
     docs: {
@@ -27,8 +34,7 @@ Uses the \`Modal\` component with the \`vi-modal-slide-right\` variant for the m
         `.trim(),
       },
       story: {
-        inline: false,
-        height: "80px",
+        height: "55vh",
       },
     },
   },
@@ -41,11 +47,11 @@ const defaultLogo = {
   name: "Advi UI",
   image: {
     url: "/ad-logo.webp",
-    alt: "Advi UI Logo"
+    alt: "Advi UI Logo",
   },
   link: {
     url: "/",
-    text: "Go to homepage"
+    text: "Go to homepage",
   },
 };
 
@@ -79,7 +85,7 @@ export const Default: Story = {
     },
   },
   render: () => (
-    <Header logo={defaultLogo} ctaLinks={defaultLinks} />
+    <Header logo={defaultLogo} ctaLinks={defaultLinks} modalRootSelector="#header-modal-root" />
   ),
 };
 
@@ -99,7 +105,5 @@ export const LogoOnly: Story = {
       },
     },
   },
-  render: () => (
-    <Header logo={defaultLogo} />
-  ),
+  render: () => <Header logo={defaultLogo} modalRootSelector="#header-modal-root" />,
 };

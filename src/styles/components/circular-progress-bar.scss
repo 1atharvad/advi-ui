@@ -1,0 +1,33 @@
+@layer components {
+  .vi-circular-progress {
+    @apply inline-flex flex-col items-center gap-2;
+
+    &-arc {
+      @apply relative inline-flex items-center justify-center;
+    }
+
+    &-svg {
+      @apply block;
+    }
+
+    &-track {
+      stroke: hsl(var(--muted));
+    }
+
+    &-fill {
+      stroke: hsl(var(--primary));
+    }
+
+    &-center {
+      @apply absolute inset-0 flex items-center justify-center;
+    }
+
+    &-pct {
+      @apply text-sm font-semibold tabular-nums text-foreground;
+    }
+
+    &-label {
+      @apply text-sm font-medium text-center text-foreground;
+    }
+  }
+}

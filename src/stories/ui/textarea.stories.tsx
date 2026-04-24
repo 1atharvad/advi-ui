@@ -20,11 +20,10 @@ Multi-line text input with built-in **label**, **description**, **inline validat
 | \`description\` | \`string\` | — | Helper text rendered below |
 | \`validate\` | \`(value: string) => string \\| null\` | — | Called on change; return an error string or \`null\` |
 | \`onValidationChange\` | \`(valid: boolean) => void\` | — | Fires on each keystroke with the current valid state |
-| \`hidden\` | \`boolean\` | \`false\` | Enables mask mode — actual text is invisible, dots are overlaid |
-| \`maskedLength\` | \`number\` | \`8\` | Number of bullet dots rendered in mask mode |
+| \`hidden\` | \`boolean\` | \`false\` | Enables mask mode — text is hidden, dots track character count |
 | \`disabled\` | \`boolean\` | \`false\` | Disables the textarea |
 
-**Mask mode** (\`hidden={true}\`) renders the real value as transparent text so layout stays stable, then overlays a fixed-length string of \`•\` dots via an absolutely-positioned div. The real value is still in the DOM for form submission.
+**Mask mode** (\`hidden={true}\`) hides the typed text while keeping it in the DOM for form submission. An overlay renders one \`•\` per character so the dot count shrinks and grows with the actual value. The text cursor remains visible.
         `.trim(),
       },
     },
@@ -42,7 +41,6 @@ Multi-line text input with built-in **label**, **description**, **inline validat
     label: { control: { type: "text" } },
     description: { control: { type: "text" } },
     placeholder: { control: { type: "text" } },
-    maskedLength: { control: { type: "number" } },
   },
 };
 
@@ -94,7 +92,7 @@ export const WithValidation: Story = {
     docs: {
       description: {
         story:
-          "`validate` runs on every keystroke. Returning a non-null string shows a red error and red border; " +
+          "`validate` runs on every keystroke. Returning a non-null string shows an error message and destructive border; " +
           "`onValidationChange` fires with the boolean valid state for parent-controlled logic.",
       },
     },
@@ -114,15 +112,14 @@ export const Masked: Story = {
     docs: {
       description: {
         story:
-          "`hidden={true}` makes the real text transparent and overlays bullet dots (count set by `maskedLength`). " +
-          "The real value stays in the DOM for form submission — useful for API keys or tokens.",
+          "`hidden={true}` hides typed text behind `•` dots. The dot count matches the character count exactly — " +
+          "it shrinks when characters are deleted and grows as you type. The real value stays in the DOM for form submission.",
       },
       source: {
         code: `
 <Textarea
   label="Secret token"
   hidden={true}
-  maskedLength={12}
   defaultValue="super-secret-value"
 />`.trim(),
       },
@@ -131,8 +128,23 @@ export const Masked: Story = {
   args: {
     label: "Secret token",
     hidden: true,
-    maskedLength: 12,
     defaultValue: "super-secret-value",
+  },
+};
+
+export const MaskedEmpty: Story = {
+  name: "Masked — Empty",
+  parameters: {
+    docs: {
+      description: {
+        story: "When masked and empty, no dots are shown. The placeholder is hidden in mask mode to avoid conflicting with the dot overlay.",
+      },
+    },
+  },
+  args: {
+    label: "Secret token",
+    hidden: true,
+    placeholder: "Paste your token here…",
   },
 };
 

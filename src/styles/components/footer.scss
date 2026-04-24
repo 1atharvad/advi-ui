@@ -1,0 +1,50 @@
+@layer components {
+  .vi-footer {
+    @apply w-full border-t border-border bg-background;
+
+    &-inner {
+      @apply mx-auto max-w-7xl px-6 py-10;
+    }
+
+    &-top {
+      @apply flex flex-col gap-10 sm:flex-row sm:justify-between;
+    }
+
+    &-logo {
+      @apply flex-shrink-0;
+    }
+
+    &-nav {
+      @apply flex flex-wrap gap-10;
+    }
+
+    &-group {
+      @apply flex flex-col gap-3;
+    }
+
+    &-group-title {
+      @apply text-sm font-semibold text-foreground;
+    }
+
+    &-links {
+      @apply flex flex-col gap-2 list-none p-0 m-0;
+    }
+
+    &-link {
+      @apply text-sm text-muted-foreground transition-colors;
+      @apply hover:text-foreground;
+    }
+
+    &-divider {
+      @apply my-8 border-0 border-t border-border;
+    }
+
+    &-bottom {
+      @apply flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between;
+    }
+
+    &-copyright {
+      @apply text-sm text-muted-foreground;
+    }
+  }
+}
