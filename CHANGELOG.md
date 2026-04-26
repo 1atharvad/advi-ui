@@ -4,6 +4,13 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.5] — 2026-04-26
+
+### Fixed
+- Rebuilt `dist` so type declarations (`dist/src/index.d.ts`) include all exports added in 0.1.4 — `Select`, `MultiSelect`, `Radio`, `RadioGroup`, `FormField`, `CircularProgressBar`, `Footer`, and `HoverPopup` were missing from the published types, causing `Module '"advi-ui"' has no exported member` errors for consumers
+
+---
+
 ## [0.1.4] — 2026-04-23
 
 ### Added
