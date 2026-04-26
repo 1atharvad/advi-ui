@@ -1,0 +1,42 @@
+@layer components {
+  .vi-tabs {
+    &-root {
+      @apply flex flex-col w-full;
+    }
+
+    &-list {
+      @apply flex w-full border-b border-border;
+    }
+
+    // Button ghost overrides
+    &-trigger {
+      @apply flex-1 h-auto rounded-none px-4 py-3 -mb-px;
+      @apply text-sm font-medium text-muted-foreground;
+      @apply border-none relative;
+      @apply hover:bg-transparent hover:text-foreground;
+      @apply transition-colors;
+
+      &:focus {
+        @apply border-none;
+      }
+
+      &:focus-visible {
+        @apply shadow-none;
+      }
+
+      &-active {
+        @apply text-foreground;
+
+        &::after {
+          content: "";
+          @apply absolute w-full h-0.5 bg-primary bottom-0;
+          transform: translateY(25%);
+        }
+      }
+    }
+
+    &-content {
+      @apply pt-4 text-sm;
+    }
+  }
+}

@@ -1,0 +1,117 @@
+@layer components {
+  .vi-checkbox {
+    &-root {
+      @apply flex flex-col gap-1 w-full;
+    }
+
+    &-legend {
+      @apply text-sm font-normal leading-none;
+    }
+
+    &-options {
+      @apply flex flex-col gap-2 mt-1;
+
+      &-horizontal {
+        @apply flex-row flex-wrap gap-x-6 gap-y-2;
+      }
+    }
+
+    &-item {
+      --vi-checkbox-size: 1rem;
+
+      @apply flex items-center gap-2 cursor-pointer w-fit;
+
+      &:has(input:disabled) {
+        @apply opacity-50 cursor-not-allowed;
+      }
+
+      &:has(input:focus-visible) .vi-checkbox-indicator {
+        @apply ring-1 ring-ring ring-offset-1 ring-offset-background;
+      }
+
+      // Checked: filled square with checkmark
+      &:has(input:checked) .vi-checkbox-indicator {
+        @apply border-primary bg-primary;
+
+        &::after {
+          @apply block;
+        }
+      }
+
+      // Indeterminate: filled square with dash
+      &:has(input:indeterminate) .vi-checkbox-indicator {
+        @apply border-primary bg-primary;
+
+        &::before {
+          @apply block;
+        }
+      }
+
+      // ── Size variants ──────────────────────────────────────────────────
+      &-sm {
+        --vi-checkbox-size: 0.75rem;
+        @apply gap-1.5;
+
+        .vi-checkbox-label { @apply text-xs; }
+
+        .vi-checkbox-indicator::after {
+          width: 0.1875rem;
+          height: 0.375rem;
+          border-right-width: 1.5px;
+          border-bottom-width: 1.5px;
+        }
+
+        .vi-checkbox-indicator::before {
+          width: 0.375rem;
+        }
+      }
+
+      &-lg {
+        --vi-checkbox-size: 1.25rem;
+        @apply gap-2.5;
+
+        .vi-checkbox-label { @apply text-base; }
+      }
+    }
+
+    &-input {
+      @apply sr-only;
+    }
+
+    &-indicator {
+      width: var(--vi-checkbox-size);
+      height: var(--vi-checkbox-size);
+      @apply shrink-0 rounded-sm border border-input;
+      @apply flex items-center justify-center;
+      @apply transition-colors;
+
+      // Checkmark — hidden by default, revealed via :has(input:checked)
+      &::after {
+        content: '';
+        @apply hidden;
+        width: 0.25rem;
+        height: 0.4375rem;
+        border-right: 2px solid white;
+        border-bottom: 2px solid white;
+        transform: rotate(45deg) translate(0, -1px);
+      }
+
+      // Indeterminate dash — hidden by default
+      &::before {
+        content: '';
+        @apply hidden;
+        width: 0.5rem;
+        height: 2px;
+        @apply bg-white;
+      }
+    }
+
+    &-label {
+      @apply text-sm leading-none;
+    }
+
+    &-description {
+      @apply text-xs text-muted-foreground;
+    }
+  }
+}

@@ -4,6 +4,24 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.8] — 2026-04-26
+
+### Added
+- `Accordion` component — powered by `@radix-ui/react-accordion`; handles open/close state, keyboard navigation, and ARIA automatically; supports `single` (collapsible) and `multiple` modes, controlled/uncontrolled usage, and disabled items; `content` accepts `ReactNode` (plain string or any JSX); CSS height animation via `--radix-accordion-content-height`; renamed root class to `vi-accordion-container`
+- `Badge` component — inline pill label with `variant` (`filled` / `border`) and `color` (`default` / `secondary` / `destructive`) props; static class lookup maps replace template literals to ensure classes are always detectable; `sm` / `default` / `lg` sizes
+- `Checkbox` component — individual checkbox with `sm`/`default`/`lg` sizes, `indeterminate` support via `useImperativeHandle`, and CSS-only state styling via `:has(input:checked/disabled/focus-visible)`; `CheckboxGroup` manages array state for multi-select
+- `Switch` component — pill toggle using `role="switch"` on a hidden checkbox input; configurable label position (`left`/`right`); `sm`/`default`/`lg` sizes
+- `Tabs` component — full-width tab bar with primary-color underline active indicator; built with native ARIA `tablist`/`tab`/`tabpanel` roles; `content` accepts `ReactNode`; controlled and uncontrolled usage; disabled tab support
+- SCSS files for all five components following the `vi-*` + `@layer components` + `@apply` pattern
+- Storybook stories for all five components — each story includes `parameters.docs.source.code` with clean, readable code snippets; stories demonstrate plain-text content, rich ReactNode content, disabled states, controlled usage, and component composition
+
+### Changed
+- `Button` — default `type` set to `"button"` to prevent accidental form submission when used inside or near a form
+- `Accordion` stories — added `PlainText` and `RichContent` stories to demonstrate `ReactNode` content flexibility; all stories include explicit source code blocks
+- `Tabs` stories — added `PlainText`, `RichContent`, and `WithBadgesInContent` stories; all stories include explicit source code blocks; redesigned tab bar to full-width underline style with `bg-primary` active indicator and `::after` pseudo-element
+
+---
+
 ## [0.1.7] — 2026-04-26
 
 ### Changed

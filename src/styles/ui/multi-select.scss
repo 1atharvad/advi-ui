@@ -8,6 +8,7 @@
       @apply text-sm font-normal leading-none;
     }
 
+    // no w-full — flex child fills container width via align-items:stretch
     &-wrapper {
       @apply relative;
     }

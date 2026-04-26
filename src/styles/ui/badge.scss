@@ -1,0 +1,32 @@
+@layer components {
+  .vi-badge {
+    @apply inline-flex items-center rounded-full;
+    @apply text-xs px-2.5 py-1 font-medium;
+
+    // Variants — always exactly one applied
+    &-default {
+      @apply bg-primary text-primary-foreground;
+    }
+
+    &-secondary {
+      @apply bg-secondary text-secondary-foreground;
+    }
+
+    &-destructive {
+      @apply bg-destructive text-destructive-foreground;
+    }
+
+    &-outline {
+      @apply bg-transparent border border-border text-foreground;
+    }
+
+    // Sizes — only sm/lg applied, default size lives on base
+    &-sm {
+      @apply text-[0.625rem] px-2 py-0.5;
+    }
+
+    &-lg {
+      @apply text-sm px-3 py-1.5;
+    }
+  }
+}

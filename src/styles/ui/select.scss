@@ -1,13 +1,14 @@
 @layer components {
   .vi-select {
     &-container {
-      @apply inline-flex flex-col gap-1;
+      @apply inline-flex flex-col gap-1 w-fit;
     }
 
     &-label {
       @apply text-sm font-normal leading-none;
     }
 
+    // no w-full — flex child fills container width via align-items:stretch
     &-wrapper {
       @apply relative;
     }
