@@ -84,7 +84,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     };
 
     return (
-      <div className={cn("vi-select-root", className)} ref={containerRef}>
+      <div className={cn("vi-select-container", className)} ref={containerRef}>
         {label && (
           <label htmlFor={id} className="vi-select-label">
             {label}

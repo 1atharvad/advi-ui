@@ -4,6 +4,16 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.7] — 2026-04-26
+
+### Changed
+
+- `Select` — removed `w-full` from `vi-select-wrapper`; wrapper fills container via flex `align-items: stretch`, fixing `inline-flex` not shrinking to content when no width class is passed
+- `Select` — renamed CSS class `vi-select-root` → `vi-select-container`
+- `MultiSelect` — same wrapper and rename changes as `Select` (`vi-multi-select-root` → `vi-multi-select-container`)
+
+---
+
 ## [0.1.6] — 2026-04-26
 
 ### Changed
@@ -13,6 +23,7 @@ All notable changes to **advi-ui** are documented here.
 - `MultiSelect` — same `className` and width changes as `Select`
 - `Select` stories — added `source.code` to every story; added `Controlled` story with live value readout; split disabled coverage into `Disabled Option` (per-item) and `Disabled` (whole component); added `WithFormField` story with submit-triggered validation; added `argTypes` on meta; added section comment separators; added `name` to all stories
 - `MultiSelect` stories — same structural improvements as `Select` stories; `Overflow` renamed to `Chip Overflow`; added `Controlled`, `Disabled Option`, and `WithFormField` stories
+
 ---
 
 ## [0.1.5] — 2026-04-26

@@ -1,6 +1,6 @@
 @layer components {
   .vi-multi-select {
-    &-root {
+    &-container {
       @apply inline-flex flex-col gap-1;
     }
 
@@ -9,7 +9,7 @@
     }
 
     &-wrapper {
-      @apply relative w-full;
+      @apply relative;
     }
 
     &-trigger {

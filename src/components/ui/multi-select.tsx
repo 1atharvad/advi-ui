@@ -89,7 +89,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
     const overflow = value.length - maxCount;
 
     return (
-      <div className={cn("vi-multi-select-root", className)} ref={containerRef}>
+      <div className={cn("vi-multi-select-container", className)} ref={containerRef}>
         {label && (
           <label htmlFor={id} className="vi-multi-select-label">
             {label}
