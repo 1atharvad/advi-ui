@@ -4,6 +4,17 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.6] — 2026-04-26
+
+### Changed
+
+- `Select` — `className` prop now applies to the root container `<div>` instead of the trigger `<Button>`, so passing a width class (e.g. `w-full`, `w-64`) controls the whole component width including label and description
+- `Select` — removed hardcoded `w-full` from root and trigger; root changed to `inline-flex flex-col gap-1` so the component no longer takes full parent width by default
+- `MultiSelect` — same `className` and width changes as `Select`
+- `Select` stories — added `source.code` to every story; added `Controlled` story with live value readout; split disabled coverage into `Disabled Option` (per-item) and `Disabled` (whole component); added `WithFormField` story with submit-triggered validation; added `argTypes` on meta; added section comment separators; added `name` to all stories
+- `MultiSelect` stories — same structural improvements as `Select` stories; `Overflow` renamed to `Chip Overflow`; added `Controlled`, `Disabled Option`, and `WithFormField` stories
+---
+
 ## [0.1.5] — 2026-04-26
 
 ### Fixed

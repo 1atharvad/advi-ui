@@ -62,6 +62,12 @@ export const WithInput: Story = {
         story:
           "Pass matching `htmlFor` / `id` so clicking the label focuses the field. `FormField` owns the label and description; `Input` renders bare.",
       },
+      source: {
+        code: `
+<FormField htmlFor="name" label="Full name" description="As it appears on your ID.">
+  <Input id="name" placeholder="Jane Smith" />
+</FormField>`.trim(),
+      },
     },
   },
   render: () => (
@@ -76,6 +82,12 @@ export const WithTextarea: Story = {
   parameters: {
     docs: {
       description: { story: "Same pattern applied to `Textarea`." },
+      source: {
+        code: `
+<FormField htmlFor="bio" label="Bio" description="Max 200 characters.">
+  <Textarea id="bio" placeholder="Tell us about yourself…" rows={3} />
+</FormField>`.trim(),
+      },
     },
   },
   render: () => (
@@ -92,6 +104,26 @@ export const WithSelect: Story = {
       description: {
         story:
           "`Select` manages its own internal id — pass `label` directly to `Select` and use `FormField` only for the description / error row.",
+      },
+      source: {
+        code: `
+const [value, setValue] = useState<string | undefined>();
+
+<FormField description="Angular is currently unavailable.">
+  <Select
+    options={[
+      { value: "react", label: "React" },
+      { value: "vue", label: "Vue" },
+      { value: "svelte", label: "Svelte" },
+      { value: "angular", label: "Angular", disabled: true },
+    ]}
+    value={value}
+    onChange={setValue}
+    label="Framework"
+    placeholder="Choose a framework"
+    className="w-full"
+  />
+</FormField>`.trim(),
       },
     },
   },
@@ -110,6 +142,7 @@ export const WithSelect: Story = {
           onChange={setValue}
           label="Framework"
           placeholder="Choose a framework"
+          className="w-full"
         />
       </FormField>
     );
@@ -123,6 +156,24 @@ export const WithRadioGroup: Story = {
       description: {
         story:
           "Wrap `RadioGroup` to add an error message below; the group's own `label` prop handles `aria-labelledby`.",
+      },
+      source: {
+        code: `
+const [value, setValue] = useState<string | undefined>();
+
+<FormField>
+  <RadioGroup
+    options={[
+      { value: "react", label: "React" },
+      { value: "vue", label: "Vue" },
+      { value: "svelte", label: "Svelte" },
+    ]}
+    value={value}
+    onChange={setValue}
+    label="Framework"
+    description="Choose your primary framework."
+  />
+</FormField>`.trim(),
       },
     },
   },
@@ -154,6 +205,12 @@ export const Required: Story = {
       description: {
         story: "`required` appends a `*` to the label (purely visual; pair with native `required` on the input for form validation).",
       },
+      source: {
+        code: `
+<FormField htmlFor="email" label="Email" required description="We'll never share your email.">
+  <Input id="email" type="email" placeholder="you@example.com" required />
+</FormField>`.trim(),
+      },
     },
   },
   render: () => (
@@ -172,6 +229,18 @@ export const WithError: Story = {
       description: {
         story:
           "When `error` is set it replaces the description. The message is wrapped in `role=\"alert\"` for screen readers.",
+      },
+      source: {
+        code: `
+<FormField
+  htmlFor="username"
+  label="Username"
+  description="3–20 characters."
+  error="Username is already taken."
+  required
+>
+  <Input id="username" defaultValue="john_doe" aria-invalid />
+</FormField>`.trim(),
       },
     },
   },
@@ -197,6 +266,31 @@ export const ValidationOnSubmit: Story = {
       description: {
         story:
           "Error message appears after the user submits with an empty field; clears when the field has a value.",
+      },
+      source: {
+        code: `
+const [value, setValue] = useState("");
+const [submitted, setSubmitted] = useState(false);
+const error = submitted && !value.trim() ? "This field is required." : undefined;
+
+<div className="flex flex-col gap-4">
+  <FormField
+    htmlFor="title"
+    label="Project title"
+    description="Give your project a short name."
+    error={error}
+    required
+  >
+    <Input
+      id="title"
+      value={value}
+      aria-invalid={!!error}
+      onChange={(e) => { setValue(e.target.value); setSubmitted(false); }}
+      placeholder="My awesome project"
+    />
+  </FormField>
+  <Button onClick={() => setSubmitted(true)}>Submit</Button>
+</div>`.trim(),
       },
     },
   },

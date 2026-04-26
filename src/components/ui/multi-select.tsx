@@ -89,7 +89,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
     const overflow = value.length - maxCount;
 
     return (
-      <div className="vi-multi-select-root" ref={containerRef}>
+      <div className={cn("vi-multi-select-root", className)} ref={containerRef}>
         {label && (
           <label htmlFor={id} className="vi-multi-select-label">
             {label}
@@ -107,7 +107,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
             aria-multiselectable="true"
             disabled={disabled}
             variant="ghost"
-            className={cn("vi-multi-select-trigger", className)}
+            className="vi-multi-select-trigger"
             onClick={() => setOpen((o) => !o)}
             onKeyDown={handleKeyDown}
           >

@@ -73,6 +73,18 @@ export const BasicRadio: Story = {
         story:
           "Individual `Radio` items composed manually. Each acts as a standalone controlled or uncontrolled radio input — useful when the option layout needs custom markup between items.",
       },
+      source: {
+        code: `
+const [value, setValue] = useState<string | undefined>();
+
+<div role="radiogroup" aria-label="Favourite framework" className="flex flex-col gap-2">
+  <Radio name="framework" label="React" value="react" checked={value === "react"} onChange={() => setValue("react")} />
+  <Radio name="framework" label="Vue" value="vue" checked={value === "vue"} onChange={() => setValue("vue")} />
+  <Radio name="framework" label="Svelte" value="svelte" checked={value === "svelte"} onChange={() => setValue("svelte")} />
+  <Radio name="framework" label="Angular" value="angular" disabled />
+  <Radio name="framework" label="Solid" value="solid" checked={value === "solid"} onChange={() => setValue("solid")} />
+</div>`.trim(),
+      },
     },
   },
   render: () => {
@@ -105,6 +117,18 @@ export const RadioGroupStory: Story = {
         story:
           "`RadioGroup` renders the options list with built-in `role=\"radiogroup\"`, label association via `aria-labelledby`, and optional description.",
       },
+      source: {
+        code: `
+const [value, setValue] = useState<string | undefined>();
+
+<RadioGroup
+  options={frameworkOptions}
+  value={value}
+  onChange={setValue}
+  label="Framework"
+  description="Angular is currently unavailable."
+/>`.trim(),
+      },
     },
   },
   render: () => {
@@ -127,6 +151,18 @@ export const RadioGroupHorizontal: Story = {
     docs: {
       description: {
         story: '`direction="horizontal"` lays options in a row with wrapping.',
+      },
+      source: {
+        code: `
+const [value, setValue] = useState<string | undefined>();
+
+<RadioGroup
+  options={frameworkOptions}
+  value={value}
+  onChange={setValue}
+  label="Framework"
+  direction="horizontal"
+/>`.trim(),
       },
     },
   },
@@ -153,6 +189,22 @@ export const Controlled: Story = {
       description: {
         story:
           "Controlled mode — selection state lives outside the component. Pass `value` + `onChange`; the selected value is shown below.",
+      },
+      source: {
+        code: `
+const [value, setValue] = useState("react");
+
+<div className="flex flex-col gap-3">
+  <RadioGroup
+    options={frameworkOptions}
+    value={value}
+    onChange={setValue}
+    label="Framework"
+  />
+  <p className="text-xs text-muted-foreground">
+    Selected: <span className="font-medium text-foreground">{value}</span>
+  </p>
+</div>`.trim(),
       },
     },
   },
@@ -181,6 +233,15 @@ export const Uncontrolled: Story = {
       description: {
         story:
           "Uncontrolled mode — pass `defaultValue` to set the initial selection; the browser manages state. `onChange` still fires if you need to react to changes without lifting state.",
+      },
+      source: {
+        code: `
+<RadioGroup
+  options={frameworkOptions}
+  defaultValue="vue"
+  onChange={(val) => console.log(val)}
+  label="Framework"
+/>`.trim(),
       },
     },
   },
@@ -211,9 +272,17 @@ export const DisabledGroup: Story = {
       description: {
         story: "`disabled` on the group disables every option.",
       },
+      source: {
+        code: `
+<RadioGroup
+  options={frameworkOptions}
+  value="react"
+  label="Framework"
+  disabled
+/>`.trim(),
+      },
     },
   },
-  args: {},
   render: () => (
     <RadioGroup
       options={frameworkOptions}
@@ -231,6 +300,21 @@ export const DisabledOption: Story = {
       description: {
         story:
           "Set `disabled: true` on individual `RadioOption` entries. Keyboard navigation skips disabled options natively.",
+      },
+      source: {
+        code: `
+const options = [
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue" },
+  { value: "angular", label: "Angular", disabled: true },
+];
+
+<RadioGroup
+  options={options}
+  value={value}
+  onChange={setValue}
+  label="Framework"
+/>`.trim(),
       },
     },
   },
@@ -254,6 +338,13 @@ export const DisabledIndividual: Story = {
       description: {
         story: "The standalone `Radio` component accepts `disabled` directly.",
       },
+      source: {
+        code: `
+<div className="flex flex-col gap-2">
+  <Radio name="dis" label="Enabled option" value="a" defaultChecked />
+  <Radio name="dis" label="Disabled option" value="b" disabled />
+</div>`.trim(),
+      },
     },
   },
   render: () => (
@@ -273,6 +364,14 @@ export const Sizes: Story = {
       description: {
         story:
           "`size` scales the indicator circle and label text. `\"sm\"` / `\"default\"` / `\"lg\"` available on both `Radio` and `RadioGroup`.",
+      },
+      source: {
+        code: `
+<div className="flex flex-col gap-6">
+  <RadioGroup options={[{ value: "react", label: "React" }, { value: "vue", label: "Vue" }]} defaultValue="react" size="sm" />
+  <RadioGroup options={[{ value: "react", label: "React" }, { value: "vue", label: "Vue" }]} defaultValue="react" size="default" />
+  <RadioGroup options={[{ value: "react", label: "React" }, { value: "vue", label: "Vue" }]} defaultValue="react" size="lg" />
+</div>`.trim(),
       },
     },
   },
@@ -302,6 +401,14 @@ export const SizesIndividual: Story = {
       description: {
         story: "Same `size` prop on standalone `Radio` items.",
       },
+      source: {
+        code: `
+<div className="flex flex-col gap-3">
+  <Radio name="sz" size="sm" label="Small" value="sm" />
+  <Radio name="sz" size="default" label="Default" value="default" defaultChecked />
+  <Radio name="sz" size="lg" label="Large" value="lg" />
+</div>`.trim(),
+      },
     },
   },
   render: () => (
@@ -322,6 +429,23 @@ export const WithFormField: Story = {
       description: {
         story:
           "`FormField` wraps `RadioGroup` to add consistent label, description, required indicator, and error display. The group's own `label` prop is omitted — `FormField` owns the heading.",
+      },
+      source: {
+        code: `
+const [value, setValue] = useState<string | undefined>();
+const [submitted, setSubmitted] = useState(false);
+const error = submitted && !value ? "Please select a framework." : undefined;
+
+<div className="flex flex-col gap-4">
+  <FormField label="Framework" error={error} required>
+    <RadioGroup
+      options={frameworkOptions}
+      value={value}
+      onChange={(v) => { setValue(v); setSubmitted(false); }}
+    />
+  </FormField>
+  <Button onClick={() => setSubmitted(true)}>Submit</Button>
+</div>`.trim(),
       },
     },
   },

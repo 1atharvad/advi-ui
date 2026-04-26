@@ -84,7 +84,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     };
 
     return (
-      <div className="vi-select-root" ref={containerRef}>
+      <div className={cn("vi-select-root", className)} ref={containerRef}>
         {label && (
           <label htmlFor={id} className="vi-select-label">
             {label}
@@ -102,7 +102,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
             aria-activedescendant={open && activeIndex >= 0 ? `${id}-opt-${activeIndex}` : undefined}
             disabled={disabled}
             variant="ghost"
-            className={cn("vi-select-trigger", className)}
+            className="vi-select-trigger"
             onClick={() => setOpen((o) => !o)}
             onKeyDown={handleKeyDown}
           >
