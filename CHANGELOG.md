@@ -4,6 +4,25 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.9] — 2026-04-27
+
+### Added
+- `SearchInput` component (`src/components/SearchInput.tsx`) — richer search input built on a native `<input type="search">`; features a persistent search icon, debounced `onSearch` callback (300 ms default, pass `0` to disable), clear button (X) that appears when the field has a value, `Escape` key to clear, loading spinner (`loading` prop) that replaces the clear button during async operations, and an optional keyboard-shortcut badge (`shortcut` prop, e.g. `"⌘K"`) shown when the field is empty; supports controlled and uncontrolled usage
+- `SearchInput` — `showButton` prop adds an icon-only search button to the right of the input; `onSearch` fires immediately on button click or `Enter` (debounce bypassed); search icon moves from the left of the input into the button
+- `search-input.scss` — `vi-search-input-*` styles; `vi-search-input-group` wraps the input + button pair with shared focus ring
+- Storybook stories for `SearchInput` (`Components/SearchInput`) — Default, With Shortcut Badge, With Search Button, Loading State, Controlled + onSearch, Disabled
+- `Table` component (`src/components/ui/table.tsx`) — composable table built from eight forwarded sub-components: `Table` (scroll-safe wrapper + `<table>`), `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption` (`<p>` outside the `<table>`, centered, `text-xs`); hover highlight on rows; muted background on header and footer; all sub-components accept `className` and forward refs
+- `table.scss` — `vi-table-*` styles following the `@layer components` + `@apply` pattern
+- Storybook stories for `Table` (`UI/Table`) — Default, With Footer, With Caption
+
+### Changed
+- `ScrollAnimationBtn` story — moved from `src/stories/ui/button.custom.stories.tsx` to `src/stories/components/scroll-animation-btn.stories.tsx`; Storybook title updated from `"UI/Button/Custom"` to `"Components/ScrollAnimationBtn"`
+- `Button` — `vi-btn-size-icon` corrected from `h-9 w-9` to `h-10 w-10` to match the default button height
+- `utils.ts` — rewrote all exports as arrow functions; fixed broken syntax; added `round(value, decimal)`, `clamp(value, min, max)`, `truncate(str, maxLength, suffix?)`, `throttle(func, limit)`, and `debounce(func, delay)`; `debounce` return value exposes a `.cancel()` method to flush any pending call; generic constraints use `any[]` (correct for higher-order function inference)
+- `SearchInput` — replaced inline `setTimeout`/`clearTimeout` ref pattern with the shared `debounce` utility; `debouncedSearch` is memoised by `debounceMs` and cleaned up on unmount via `.cancel()`
+
+---
+
 ## [0.1.8] — 2026-04-26
 
 ### Added

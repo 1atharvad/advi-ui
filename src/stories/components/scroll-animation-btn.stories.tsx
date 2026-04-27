@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ScrollAnimationBtn } from "@/components/ScrollAnimationBtn";
 
 const meta: Meta<typeof ScrollAnimationBtn> = {
-  title: "UI/Button/Custom",
+  title: "Components/ScrollAnimationBtn",
   component: ScrollAnimationBtn,
   tags: ["autodocs"],
   parameters: {

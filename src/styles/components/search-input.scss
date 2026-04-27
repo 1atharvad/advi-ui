@@ -1,0 +1,89 @@
+@layer components {
+  .vi-search-input {
+    @apply relative flex items-center w-full gap-2 px-3;
+    @apply rounded-md border border-input bg-transparent shadow-sm;
+    @apply transition-colors;
+    @apply focus-within:ring-1 focus-within:ring-ring;
+    height: 2.25rem;
+
+    &--with-button {
+      @apply rounded-r-none border-r-0 shadow-none px-3;
+      @apply focus-within:ring-0;
+    }
+
+    &--disabled {
+      @apply opacity-50 cursor-not-allowed pointer-events-none;
+    }
+
+    &__search-icon {
+      @apply h-4 w-4 shrink-0 text-muted-foreground;
+    }
+
+    &__field {
+      @apply flex-1 min-w-0 bg-transparent text-sm outline-none;
+      @apply placeholder:text-muted-foreground text-foreground;
+
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        display: none;
+      }
+    }
+
+    &__shortcut {
+      @apply inline-flex items-center rounded border border-border;
+      @apply px-1.5 py-0.5 text-[0.65rem] font-mono font-medium leading-none;
+      @apply text-muted-foreground bg-muted shrink-0 select-none pointer-events-none;
+    }
+
+    &__clear {
+      @apply flex items-center justify-center shrink-0 rounded-sm;
+      @apply h-4 w-4 text-muted-foreground transition-colors;
+      @apply hover:text-foreground;
+      @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+
+      svg {
+        @apply h-3.5 w-3.5;
+      }
+    }
+
+    &__spinner {
+      @apply h-4 w-4 shrink-0 rounded-full border-2;
+      border-color: hsl(var(--muted-foreground) / 0.3);
+      border-top-color: hsl(var(--muted-foreground));
+      animation: vi-search-spin 0.65s linear infinite;
+    }
+  }
+
+  .vi-search-input-group {
+    @apply flex w-full;
+    @apply rounded-md border border-input shadow-sm;
+    @apply focus-within:ring-1 focus-within:ring-ring;
+
+    &--disabled {
+      @apply opacity-50 cursor-not-allowed pointer-events-none;
+    }
+
+    &__btn {
+      @apply flex items-center justify-center shrink-0;
+      @apply rounded-l-none rounded-r-md border-l border-input;
+      @apply bg-primary text-primary-foreground;
+      @apply transition-colors hover:bg-primary/90;
+      @apply focus-visible:outline-none;
+      @apply disabled:pointer-events-none;
+      height: 2.25rem;
+      width: 2.25rem;
+
+      &-icon {
+        @apply h-4 w-4;
+      }
+    }
+  }
+}
+
+@keyframes vi-search-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
