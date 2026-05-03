@@ -1,0 +1,186 @@
+import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react";
+import { PageAside, AsideBtn } from "@/components/PageAside";
+import { Home, Users, BarChart, FileText, Settings, LogOut } from "lucide-react";
+
+const navItems = [
+  { icon: <Home className="h-4 w-4" />, label: "Home" },
+  { icon: <Users className="h-4 w-4" />, label: "Users" },
+  { icon: <BarChart className="h-4 w-4" />, label: "Analytics" },
+  { icon: <FileText className="h-4 w-4" />, label: "Reports" },
+  { icon: <Settings className="h-4 w-4" />, label: "Settings" },
+];
+
+const meta: Meta<typeof PageAside> = {
+  title: "Components/PageAside/Toggleable",
+  component: PageAside,
+  tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      description: {
+        component: `
+Toggleable variants — pass \`open\` + \`onToggle\` to enable the collapse/expand chevron at the bottom.
+
+When collapsed, items show icon-only with a tooltip on hover. Labels animate in when expanded.
+        `.trim(),
+      },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof PageAside>;
+
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: { story: "Click the chevron at the bottom to collapse and expand." },
+      source: {
+        language: "tsx",
+        code: `
+const [open, setOpen] = useState(true);
+
+<PageAside
+  open={open}
+  onToggle={() => setOpen(o => !o)}
+  items={[
+    { icon: <Home className="h-4 w-4" />, label: "Home", onClick: () => {} },
+    { icon: <Users className="h-4 w-4" />, label: "Users", onClick: () => {} },
+    { icon: <Settings className="h-4 w-4" />, label: "Settings", onClick: () => {} },
+  ]}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={navItems.map(item => ({ ...item, onClick: () => {} }))}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Click the chevron to toggle the sidebar.
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithActiveItem: Story = {
+  name: "Active Item",
+  parameters: {
+    docs: {
+      description: { story: "Click any item to set it as active. Active state is highlighted with a primary tint." },
+      source: {
+        language: "tsx",
+        code: `
+const [open, setOpen] = useState(true);
+const [active, setActive] = useState("Home");
+
+<PageAside
+  open={open}
+  onToggle={() => setOpen(o => !o)}
+  items={items.map(item => ({
+    ...item,
+    active: item.label === active,
+    onClick: () => setActive(item.label),
+  }))}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(true);
+    const [active, setActive] = useState("Home");
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={navItems.map(item => ({
+            ...item,
+            active: item.label === active,
+            onClick: () => setActive(item.label),
+          }))}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Active: <span className="font-medium text-foreground">{active}</span>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithFooter: Story = {
+  name: "With Footer",
+  parameters: {
+    docs: {
+      description: { story: "`footer` receives the current open state — adapt the UI accordingly (label vs icon-only)." },
+      source: {
+        language: "tsx",
+        code: `
+<PageAside
+  open={open}
+  onToggle={() => setOpen(o => !o)}
+  items={items}
+  footer={() => (
+    <AsideBtn icon={<LogOut className="h-4 w-4" />} label="Log out" onClick={() => {}} />
+  )}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={navItems.map(item => ({ ...item, onClick: () => {} }))}
+          footer={() => (
+            <AsideBtn icon={<LogOut className="h-4 w-4" />} label="Log out" onClick={() => {}} />
+          )}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Footer adapts: shows label when open, icon-only when collapsed.
+        </div>
+      </div>
+    );
+  },
+};
+
+export const StartsCollapsed: Story = {
+  name: "Starts Collapsed",
+  parameters: {
+    docs: {
+      description: { story: "Initialised in the collapsed state — icons only, tooltips on hover." },
+      source: {
+        language: "tsx",
+        code: `
+const [open, setOpen] = useState(false);
+
+<PageAside open={open} onToggle={() => setOpen(o => !o)} items={items} />`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={navItems.map(item => ({ ...item, onClick: () => {} }))}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Click the chevron to expand.
+        </div>
+      </div>
+    );
+  },
+};

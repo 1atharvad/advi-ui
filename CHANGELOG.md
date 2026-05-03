@@ -4,6 +4,25 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.10] — 2026-05-03
+
+### Added
+- `AsideBtn` component exported from `src/components/PageAside.tsx` — reusable ghost button with icon + animated label; used internally by `PageAside` nav and available for custom footer slots
+- `Button` icons Storybook stories (`UI/Button/Icons`) — Leading Icon, Trailing Icon, Icon Only (`size="icon"`), All Variants with icon, Sizes
+
+### Changed
+- `PageAside` — full redesign; replaced the old `PageAside`/`PageAsideNavItem` pattern with a single unified component supporting both always-open and collapsible modes
+  - Pass `open` + `onToggle` to enable the collapse/expand chevron; omit both for a permanently expanded sidebar
+  - `title` prop renders a `vi-aside-header` section; `footer` prop accepts `(open: boolean) => ReactNode` for a footer slot
+  - `openWidth` prop (default `"w-44"`) controls the expanded width via a Tailwind class
+  - Label show/hide is CSS-driven (`max-width` + `opacity` transition) — no JS mount/unmount
+  - Gap collapses with a `transition: gap 0s 200ms` delay so the icon gap only snaps to zero after the label animation finishes
+  - `vi-aside-footer` and `vi-aside-toggle` are now sibling elements, each with its own `border-t` divider — no double borders regardless of which slots are used
+  - CSS specificity overrides (`0,2,0` / `0,3,0`) replace all `!important` declarations
+- `PageAside` Storybook stories split into two files: `page-aside.untoggleable.stories.tsx` (Always Open, With Title, With Footer, Custom Width) and `page-aside.toggleable.stories.tsx` (Default, Active Item, With Footer, Starts Collapsed); all footer examples use `<AsideBtn>` for consistent animation
+
+---
+
 ## [0.1.9] — 2026-04-27
 
 ### Added
