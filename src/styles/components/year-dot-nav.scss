@@ -1,0 +1,38 @@
+@layer components {
+  .vi-year-dot-nav {
+    @apply fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col;
+    gap: 8px;
+
+    &-item {
+      @apply relative flex items-center justify-end;
+    }
+
+    &-label {
+      @apply absolute right-[14px] font-rubik font-semibold text-xs pointer-events-none whitespace-nowrap;
+      @apply text-primary bg-primary/10 border border-primary/20 rounded-full px-2 py-0.5;
+      @apply transition-[opacity,transform] duration-150;
+      opacity: 0;
+      transform: translateX(4px);
+
+      &--visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    &-btn {
+      @apply p-2 -m-2 flex items-center justify-center;
+    }
+
+    &-dot {
+      @apply rounded-full bg-primary/30 transition-[background-color,transform] duration-150;
+      width: 5px;
+      height: 5px;
+
+      &--active {
+        @apply bg-primary;
+        transform: scale(1.4);
+      }
+    }
+  }
+}

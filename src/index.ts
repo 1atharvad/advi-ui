@@ -35,3 +35,4 @@ export * from './components/Header';
 export * from './components/HoverPopup';
 export * from './components/PageNotFound';
 export * from './components/PageAside';
+export * from './components/YearDotNav';
