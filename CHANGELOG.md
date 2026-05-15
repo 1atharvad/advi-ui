@@ -4,6 +4,21 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.11] — 2026-05-06
+
+### Fixed
+- `Button` — focus no longer shifts button width; replaced `border-[1px]` on `:focus` with `box-shadow: 0 0 0 1px hsl(var(--border))` on `:focus:not(:focus-visible)` so click feedback renders outside the box model without affecting layout
+
+### Changed
+- `Button` — `rounded-[30px]` moved to base class; per-variant duplication removed; `ghost` overrides with `rounded-md`, `link` with `rounded-none`, `icon` size with `rounded-md`
+- `Button` — `outline` variant border upgraded from `border` (1px) to `border-2` to match `default`, `destructive`, and `secondary`
+- `Button` — `focus-visible` ring upgraded from `ring-1` to `ring-2 ring-offset-2` for clearer keyboard navigation indicator
+- `Button` — `transition-colors` replaced with `transition-all` to cover opacity and scale transitions
+- `Button` — active/press state added: `active:opacity-80 active:scale-[0.98]`; `transform: translateZ(0)` forces GPU compositing to prevent text subpixel jitter during scale
+- `Button` — click focus shadow (`box-shadow`) suppressed on `ghost` and `link` variants
+
+---
+
 ## [0.1.10] — 2026-05-03
 
 ### Added

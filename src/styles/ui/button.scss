@@ -1,15 +1,16 @@
 @layer components {
   .vi-btn {
     @apply inline-flex items-center justify-center gap-2 whitespace-nowrap;
-    @apply rounded-md text-sm font-medium transition-colors;
-    @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+    @apply rounded-[30px] text-sm font-medium transition-all;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
     @apply disabled:pointer-events-none disabled:opacity-50;
     @apply [&_svg]:pointer-events-none [&_svg]:shrink-0;
     @apply w-fit;
+    @apply active:opacity-80 active:scale-[0.98];
+    transform: translateZ(0);
 
-    &:focus {
-      @apply border-[1px];
-      // margin: 0 -1px;
+    &:focus:not(:focus-visible) {
+      box-shadow: 0 0 0 1px hsl(var(--border));
     }
 
     &-logo {
@@ -18,36 +19,40 @@
 
     &-variant {
       &-default {
-        @apply bg-primary text-primary-foreground border-2 rounded-[30px];
+        @apply bg-primary text-primary-foreground border-2;
         @apply hover:bg-primary/90;
       }
 
       &-destructive {
-        @apply bg-destructive text-destructive-foreground border-2 rounded-[30px];
+        @apply bg-destructive text-destructive-foreground border-2;
         @apply hover:bg-destructive/90;
       }
 
       &-outline {
-        @apply border border-input bg-background rounded-[30px];
+        @apply border-2 border-input bg-background;
         @apply hover:bg-accent hover:text-accent-foreground;
       }
 
       &-secondary {
-        @apply bg-secondary text-secondary-foreground border-2 rounded-[30px];
+        @apply bg-secondary text-secondary-foreground border-2;
         @apply hover:bg-secondary/80;
       }
 
       &-ghost {
-        @apply hover:bg-accent hover:text-accent-foreground border-[1px] border-transparent;
+        @apply rounded-md hover:bg-accent hover:text-accent-foreground border border-transparent;
 
-        &:focus {
-          @apply border-inherit;
+        &:focus:not(:focus-visible) {
+          box-shadow: none;
         }
       }
 
       &-link {
-        @apply text-primary underline-offset-4;
+        @apply rounded-none text-primary underline-offset-4;
         @apply hover:underline;
+
+        &:focus:not(:focus-visible) {
+          box-shadow: none;
+        }
       }
     }
 
@@ -68,7 +73,7 @@
       }
 
       &-icon {
-        @apply h-10 w-10;
+        @apply h-10 w-10 rounded-md;
       }
     }
   }
