@@ -4,6 +4,17 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.12] — 2026-05-15
+
+### Added
+- `YearDotNav` component (`src/components/YearDotNav.tsx`) — fixed right-rail dot navigation that tracks which year section is in view using one `IntersectionObserver` per year; clicking a dot smooth-scrolls to that section; hovering reveals a pill label with a slide-in transition
+- `scrollAlign` prop (`'top' | 'center' | 'bottom'`, default `'center'`) — controls where the target section lands in the viewport after a dot click; `top` aligns the section's top edge to the viewport top, `bottom` aligns its bottom edge to the viewport bottom
+- Programmatic scroll lock — clicking a dot sets `isProgrammaticScrollRef` so the active dot stays fixed on the clicked year while the smooth-scroll plays; cleared via the native `scrollend` event (Chrome 114+, Firefox 109+) with a 150 ms debounced `scroll` listener as a Safari fallback
+- `year-dot-nav.scss` — `vi-year-dot-nav-*` BEM styles; inactive dots at 30% opacity, active dot scales to 1.4× and fills with `--primary`; label slides in from `translateX(4px)` on hover
+- Storybook stories for `YearDotNav` (`Components/YearDotNav`) — Default (center), Scroll Align Top, Scroll Align Bottom; sections use alternating heights (40 vh – 160 vh) so alignment differences are visually distinct
+
+---
+
 ## [0.1.11] — 2026-05-06
 
 ### Fixed
