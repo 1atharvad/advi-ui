@@ -4,6 +4,19 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.14] — 2026-05-16
+
+### Changed
+- `YearDotNav` — `years: number[]` prop replaced by `items: YearDotNavItem[]` (`{ year: number; months?: number[] }`) to support optional per-year month navigation; year-only usage still works by omitting `months`
+- `YearDotNav` — month dots collapse/expand below the year dot: they render only when `activeYear === year`, acting as a breadcrumb so the year dot stays filled while a month is active
+- `YearDotNav` — separate `IntersectionObserver` per month element (`#year-{year}-month-{month}`) sets both `activeYear` and `activeMonth`; clicking a month dot calls `scrollToMonth(year, month)` which updates both states then smooth-scrolls
+- `YearDotNav` — `MONTH_LABELS` maps 1-based month numbers to three-letter abbreviations shown in the hover pill
+- `YearDotNav` — inactive dots enlarged to 9 × 9 px (year) and 6 × 6 px (month); active dot scales to 1.1×; month button hit area widened to 24 × 24 px via `p-3 -m-3`
+- `year-dot-nav.scss` — added `vi-year-dot-nav-group`, `vi-year-dot-nav-months`, `vi-year-dot-nav-dot--month`, `vi-year-dot-nav-btn--month`; month group uses `padding-block: 6px` and `gap: 8px`
+- Storybook — `year-dot-nav.stories.tsx` rewritten: `Default` story includes year+month sections; added `YearsOnly`, `AlignTop`, `AlignBottom` stories; docs-view wrapper applies `h-[55vh] overflow-y-scroll` only when `viewMode === 'docs'`
+
+---
+
 ## [0.1.12] — 2026-05-15
 
 ### Added

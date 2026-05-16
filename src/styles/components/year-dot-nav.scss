@@ -3,6 +3,17 @@
     @apply fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col;
     gap: 8px;
 
+    &-group {
+      @apply flex flex-col;
+      gap: 0;
+    }
+
+    &-months {
+      @apply flex flex-col;
+      gap: 8px;
+      padding-block: 6px;
+    }
+
     &-item {
       @apply relative flex items-center justify-end;
     }
@@ -22,16 +33,25 @@
 
     &-btn {
       @apply p-2 -m-2 flex items-center justify-center;
+
+      &--month {
+        @apply p-3 -m-3;
+      }
     }
 
     &-dot {
       @apply rounded-full bg-primary/30 transition-[background-color,transform] duration-150;
-      width: 5px;
-      height: 5px;
+      width: 9px;
+      height: 9px;
+
+      &--month {
+        width: 6px;
+        height: 6px;
+      }
 
       &--active {
         @apply bg-primary;
-        transform: scale(1.4);
+        transform: scale(1.1);
       }
     }
   }
