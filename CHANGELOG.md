@@ -4,6 +4,17 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.15] — 2026-05-16
+
+### Changed
+- `year-dot-nav.scss` — nav container repositioned to `right-3` on mobile and `right-6` on `md+` so the hit area is not clipped by the viewport edge on small screens
+- `year-dot-nav.scss` — `touch-manipulation` added to `vi-year-dot-nav-btn` to eliminate the 300 ms tap delay on iOS/Android
+- `year-dot-nav.scss` — `vi-year-dot-nav-group` gap increased to `10px` and `items-center` added for consistent vertical rhythm between year and month dot groups
+- `year-dot-nav.scss` — `vi-year-dot-nav-months` padding changed from `padding-block: 6px` to `pb-1` and `vi-year-dot-nav-btn--month` padding unified with the year button (`p-2 -m-2`)
+- `year-dot-nav.scss` — hover label offset updated to `right-[22px]` to align correctly with the repositioned buttons
+
+---
+
 ## [0.1.14] — 2026-05-16
 
 ### Changed
