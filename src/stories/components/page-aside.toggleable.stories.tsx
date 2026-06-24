@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { PageAside, AsideBtn } from "@/components/PageAside";
-import { Home, Users, BarChart, FileText, Settings, LogOut } from "lucide-react";
+import { PageAside, AsideBtn, AsideText } from "@/components/PageAside";
+import { Home, Users, BarChart, FileText, Settings, LogOut, Info } from "lucide-react";
 
 const navItems = [
   { icon: <Home className="h-4 w-4" />, label: "Home" },
@@ -148,6 +148,135 @@ export const WithFooter: Story = {
         />
         <div className="flex-1 p-8 text-sm text-muted-foreground">
           Footer adapts: shows label when open, icon-only when collapsed.
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithAsideText: Story = {
+  name: "With AsideText",
+  parameters: {
+    docs: {
+      description: { story: "`AsideText` used as a read-only label in the footer slot — no click handler, same visual structure as `AsideBtn`." },
+      source: {
+        language: "tsx",
+        code: `
+<PageAside
+  open={open}
+  onToggle={() => setOpen(o => !o)}
+  items={items}
+  footer={() => (
+    <AsideText icon={<Info className="h-4 w-4" />} label="v1.0.0" />
+  )}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={navItems.map(item => ({ ...item, onClick: () => {} }))}
+          footer={() => (
+            <AsideText icon={<Info className="h-4 w-4" />} label="v1.0.0" />
+          )}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Footer uses <code>AsideText</code> — non-interactive, icon optional.
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithAsideTextNoIcon: Story = {
+  name: "With AsideText (no icon)",
+  parameters: {
+    docs: {
+      description: { story: "`AsideText` with label only — icon is omitted." },
+      source: {
+        language: "tsx",
+        code: `
+<PageAside
+  open={open}
+  onToggle={() => setOpen(o => !o)}
+  items={items}
+  footer={() => <AsideText label="v1.0.0" />}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={navItems.map(item => ({ ...item, onClick: () => {} }))}
+          footer={() => <AsideText label="v1.0.0" />}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Footer uses <code>AsideText</code> with no icon.
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithTextDivider: Story = {
+  name: "AsideText as Divider",
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "Set `type: \"divider\"` on an item (no `onClick`) to render it as a section header between button groups.",
+          "When the sidebar is **collapsed**, dividers render as a horizontal `border-t` line instead of a label.",
+          "Dividers at the **first or last** position in the nav are suppressed in collapsed mode to avoid orphaned lines.",
+        ].join(" "),
+      },
+      source: {
+        language: "tsx",
+        code: `
+const [open, setOpen] = useState(true);
+
+<PageAside
+  open={open}
+  onToggle={() => setOpen(o => !o)}
+  items={[
+    { label: "Main", type: "divider" },
+    { icon: <Home className="h-4 w-4" />, label: "Home", onClick: () => {} },
+    { icon: <Users className="h-4 w-4" />, label: "Users", onClick: () => {} },
+    { label: "Reports", type: "divider" },
+    { icon: <BarChart className="h-4 w-4" />, label: "Analytics", onClick: () => {} },
+    { icon: <FileText className="h-4 w-4" />, label: "Documents", onClick: () => {} },
+  ]}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={[
+            { label: "Main", type: "divider" as const },
+            { icon: <Home className="h-4 w-4" />, label: "Home", onClick: () => {} },
+            { icon: <Users className="h-4 w-4" />, label: "Users", onClick: () => {} },
+            { label: "Reports", type: "divider" as const },
+            { icon: <BarChart className="h-4 w-4" />, label: "Analytics", onClick: () => {} },
+            { icon: <FileText className="h-4 w-4" />, label: "Documents", onClick: () => {} },
+          ]}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Items without <code>onClick</code> render as section labels.
         </div>
       </div>
     );

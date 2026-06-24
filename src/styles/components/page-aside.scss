@@ -16,39 +16,47 @@
       @apply px-1.5 py-2 flex flex-col gap-0.5;
     }
 
-    // Specificity (0,2,0) — beats .vi-btn (0,1,0), no !important needed
-    // transition: gap 0s 200ms delays gap→0 until the label animation finishes (collapsing)
-    .vi-aside-item {
+    &-item {
       justify-content: flex-start;
       gap: 0;
       transition: gap 0s 200ms;
       @apply my-0.5 text-muted-foreground;
+
+      &--active {
+        @apply bg-primary/10 text-primary font-medium;
+
+        &:hover {
+          @apply bg-primary/10 text-primary;
+        }
+      }
+
+      &-text {
+        @apply inline-flex items-center px-3 text-xs;
+
+        &#{&}--divider {
+          @apply mt-3;
+        }
+      }
+
+      &-divider-line {
+        @apply my-2 border-t border-border;
+      }
+
+      &-icon {
+        @apply shrink-0;
+      }
+
+      &-label {
+        @apply overflow-hidden transition-[max-width,opacity] duration-200;
+        max-width: 0;
+        opacity: 0;
+      }
     }
 
-    // transition: gap 0s 0s applies gap immediately when expanding
     &--open .vi-aside-item {
       @apply w-full;
       gap: 0.625rem;
       transition: gap 0s 0s;
-    }
-
-    // Specificity (0,3,0) — beats .vi-btn-variant-ghost:hover (0,2,0)
-    .vi-aside-item--active {
-      @apply bg-primary/10 text-primary font-medium;
-
-      &:hover {
-        @apply bg-primary/10 text-primary;
-      }
-    }
-
-    &-item-icon {
-      @apply shrink-0;
-    }
-
-    &-item-label {
-      @apply overflow-hidden transition-[max-width,opacity] duration-200;
-      max-width: 0;
-      opacity: 0;
     }
 
     &--open .vi-aside-item-label {

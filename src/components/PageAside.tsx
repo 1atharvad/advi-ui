@@ -4,14 +4,15 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface AsideItem {
-  icon: React.ReactNode
+  icon?: React.ReactNode
   label: string
-  onClick: () => void
+  onClick?: () => void
   active?: boolean
+  type?: 'divider'
 }
 
 interface AsideBtnProps {
-  icon: React.ReactNode
+  icon?: React.ReactNode
   label: string
   onClick: () => void
   active?: boolean
@@ -31,6 +32,33 @@ const AsideBtn = ({ icon, label, onClick, active, tooltip }: AsideBtnProps) => (
   </Button>
 )
 AsideBtn.displayName = "AsideBtn"
+
+interface AsideTextProps {
+  label: string
+  icon?: React.ReactNode
+  active?: boolean
+  tooltip?: string
+  className?: string
+  type?: 'divider'
+  open?: boolean
+}
+
+const AsideText = ({ label, icon, active, tooltip, className, type, open }: AsideTextProps) => {
+  if (type === 'divider' && open === false) {
+    return <div className="vi-aside-item-divider-line" />
+  }
+
+  return (
+    <div
+      title={tooltip}
+      className={cn('vi-aside-item vi-aside-item-text', type === 'divider' && 'vi-aside-item-text--divider', active && 'vi-aside-item--active', className)}
+    >
+      {icon && <span className="vi-aside-item-icon">{icon}</span>}
+      <span className="vi-aside-item-label">{label}</span>
+    </div>
+  )
+}
+AsideText.displayName = "AsideText"
 
 interface PageAsideProps {
   items: AsideItem[]
@@ -67,13 +95,29 @@ const PageAside = ({
       )}
 
       <nav className="vi-aside-nav">
-        {items.map((item, i) => (
-          <AsideBtn
-            key={i}
-            {...item}
-            tooltip={!isOpen ? item.label : undefined}
-          />
-        ))}
+        {items.map((item, i) => {
+          if (!isOpen && item.type === 'divider' && (i === 0 || i === items.length - 1)) return null
+          return item.onClick ? (
+            <AsideBtn
+              key={i}
+              icon={item.icon}
+              label={item.label}
+              onClick={item.onClick}
+              active={item.active}
+              tooltip={!isOpen ? item.label : undefined}
+            />
+          ) : (
+            <AsideText
+              key={i}
+              icon={item.icon}
+              label={item.label}
+              active={item.active}
+              type={item.type}
+              open={isOpen}
+              tooltip={!isOpen ? item.label : undefined}
+            />
+          )
+        })}
       </nav>
 
       <div className="vi-aside-spacer" />
@@ -105,4 +149,4 @@ const PageAside = ({
 }
 PageAside.displayName = "PageAside"
 
-export { PageAside, AsideBtn }
+export { PageAside, AsideBtn, AsideText }

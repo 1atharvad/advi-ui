@@ -41,17 +41,42 @@ export default meta;
 type Story = StoryObj<typeof Switch>;
 
 export const Default: Story = {
-  parameters: { docs: { description: { story: "Switch in the off state." } } },
+  parameters: {
+    docs: {
+      description: { story: "Switch in the off state." },
+      source: {
+        code: `<Switch label="Enable notifications" />`,
+      },
+    },
+  },
   args: { label: "Enable notifications" },
 };
 
 export const On: Story = {
-  parameters: { docs: { description: { story: "Pre-toggled on via `defaultChecked`." } } },
+  parameters: {
+    docs: {
+      description: { story: "Pre-toggled on via `defaultChecked`." },
+      source: {
+        code: `<Switch label="Dark mode" defaultChecked />`,
+      },
+    },
+  },
   args: { label: "Dark mode", defaultChecked: true },
 };
 
 export const Disabled: Story = {
-  parameters: { docs: { description: { story: "Disabled — both on and off variants." } } },
+  parameters: {
+    docs: {
+      description: { story: "Disabled — both on and off variants." },
+      source: {
+        code: `
+<div className="flex flex-col gap-3">
+  <Switch label="Disabled off" disabled />
+  <Switch label="Disabled on" disabled defaultChecked />
+</div>`.trim(),
+      },
+    },
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       <Switch label="Disabled off" disabled />
@@ -61,7 +86,19 @@ export const Disabled: Story = {
 };
 
 export const Sizes: Story = {
-  parameters: { docs: { description: { story: "Three size variants: `sm`, `default`, and `lg`." } } },
+  parameters: {
+    docs: {
+      description: { story: "Three size variants: `sm`, `default`, and `lg`." },
+      source: {
+        code: `
+<div className="flex flex-col gap-3">
+  <Switch label="Small" size="sm" defaultChecked />
+  <Switch label="Default" size="default" defaultChecked />
+  <Switch label="Large" size="lg" defaultChecked />
+</div>`.trim(),
+      },
+    },
+  },
   render: () => (
     <div className="flex flex-col gap-3">
       <Switch label="Small" size="sm" defaultChecked />
@@ -73,13 +110,37 @@ export const Sizes: Story = {
 
 export const LabelLeft: Story = {
   name: "Label Left",
-  parameters: { docs: { description: { story: "`labelPosition=\"left\"` places the label before the track." } } },
+  parameters: {
+    docs: {
+      description: { story: "`labelPosition=\"left\"` places the label before the track." },
+      source: {
+        code: `<Switch label="Wi-Fi" labelPosition="left" defaultChecked />`,
+      },
+    },
+  },
   args: { label: "Wi-Fi", labelPosition: "left", defaultChecked: true },
 };
 
 export const Controlled: Story = {
   parameters: {
-    docs: { description: { story: "Controlled via `checked` + `onChange`, with live status text." } },
+    docs: {
+      description: { story: "Controlled via `checked` + `onChange`, with live status text." },
+      source: {
+        code: `
+const [on, setOn] = useState(false);
+
+<div className="flex flex-col items-center gap-3">
+  <Switch
+    label="Airplane mode"
+    checked={on}
+    onChange={(e) => setOn(e.target.checked)}
+  />
+  <p className="text-xs text-muted-foreground">
+    Status: {on ? "on" : "off"}
+  </p>
+</div>`.trim(),
+      },
+    },
   },
   render: () => {
     const [on, setOn] = useState(false);
@@ -101,7 +162,19 @@ export const Controlled: Story = {
 export const WithFormField: Story = {
   name: "With FormField",
   parameters: {
-    docs: { description: { story: "`Switch` inside `FormField` with a description." } },
+    docs: {
+      description: { story: "`Switch` inside `FormField` with a description." },
+      source: {
+        code: `
+<FormField
+  label="Marketing emails"
+  description="Receive emails about new products and updates."
+  className="w-72"
+>
+  <Switch defaultChecked />
+</FormField>`.trim(),
+      },
+    },
   },
   render: () => (
     <FormField
