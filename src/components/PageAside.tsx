@@ -17,15 +17,16 @@ interface AsideBtnProps {
   onClick: () => void
   active?: boolean
   tooltip?: string
+  className?: string
 }
 
-const AsideBtn = ({ icon, label, onClick, active, tooltip }: AsideBtnProps) => (
+const AsideBtn = ({ icon, label, onClick, active, tooltip, className }: AsideBtnProps) => (
   <Button
     variant="ghost"
     size="sm"
     onClick={onClick}
     title={tooltip}
-    className={cn('vi-aside-item', active && 'vi-aside-item--active')}
+    className={cn('vi-aside-item', active && 'vi-aside-item--active', className)}
   >
     <span className="vi-aside-item-icon">{icon}</span>
     <span className="vi-aside-item-label">{label}</span>
