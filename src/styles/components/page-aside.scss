@@ -2,10 +2,11 @@
   .vi-aside {
     @apply shrink-0 flex flex-col bg-card border-r border-border;
     @apply transition-all duration-200;
+    @apply h-screen overflow-hidden;
     width: 3.5rem; // collapsed width (w-14)
 
     &-header {
-      @apply p-3 border-b border-border;
+      @apply shrink-0 p-3 border-b border-border;
     }
 
     &-title {
@@ -14,13 +15,14 @@
 
     &-nav {
       @apply px-1.5 py-2 flex flex-col gap-0.5;
+      @apply flex-1 min-h-0 overflow-y-auto;
     }
 
     &-item {
       justify-content: flex-start;
       gap: 0;
       transition: gap 0s 200ms;
-      @apply my-0.5 text-muted-foreground;
+      @apply shrink-0 my-0.5 text-muted-foreground;
 
       &--active {
         @apply bg-primary/10 text-primary font-medium;
@@ -64,16 +66,12 @@
       opacity: 1;
     }
 
-    &-spacer {
-      @apply flex-1;
-    }
-
     &-footer {
-      @apply border-t border-border p-1.5;
+      @apply shrink-0 border-t border-border p-1.5;
     }
 
     &-toggle {
-      @apply px-1.5 py-1 flex justify-end border-t border-border;
+      @apply shrink-0 px-1.5 py-1 flex justify-end border-t border-border;
     }
 
     .vi-aside-toggle-btn {

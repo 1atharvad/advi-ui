@@ -283,6 +283,58 @@ const [open, setOpen] = useState(true);
   },
 };
 
+export const ScrollableNav: Story = {
+  name: "Scrollable Nav",
+  parameters: {
+    docs: {
+      description: {
+        story: "When the nav items overflow the viewport height, only the nav scrolls — the header, footer, and toggle stay pinned and the aside always matches the viewport height.",
+      },
+      source: {
+        language: "tsx",
+        code: `
+const manyItems = Array.from({ length: 30 }, (_, i) => ({
+  icon: <FileText className="h-4 w-4" />,
+  label: \`Item \${i + 1}\`,
+  onClick: () => {},
+}));
+
+<PageAside
+  title="Navigation"
+  open={open}
+  onToggle={() => setOpen(o => !o)}
+  items={manyItems}
+  footer={() => <AsideText icon={<Info className="h-4 w-4" />} label="v1.0.0" />}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [open, setOpen] = useState(true);
+    const manyItems = Array.from({ length: 30 }, (_, i) => ({
+      icon: <FileText className="h-4 w-4" />,
+      label: `Item ${i + 1}`,
+      onClick: () => {},
+    }));
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          title="Navigation"
+          open={open}
+          onToggle={() => setOpen(o => !o)}
+          items={manyItems}
+          footer={() => (
+            <AsideText icon={<Info className="h-4 w-4" />} label="v1.0.0" />
+          )}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Scroll the sidebar nav — header and footer stay fixed.
+        </div>
+      </div>
+    );
+  },
+};
+
 export const StartsCollapsed: Story = {
   name: "Starts Collapsed",
   parameters: {

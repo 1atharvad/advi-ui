@@ -121,8 +121,6 @@ const PageAside = ({
         })}
       </nav>
 
-      <div className="vi-aside-spacer" />
-
       {footer && (
         <div className="vi-aside-footer">
           {footer(isOpen)}

@@ -237,6 +237,53 @@ export const WithTextDivider: Story = {
   ),
 };
 
+export const ScrollableNav: Story = {
+  name: "Scrollable Nav",
+  parameters: {
+    docs: {
+      description: {
+        story: "When the nav items overflow the viewport height, only the nav scrolls — the header and footer stay pinned and the aside always matches the viewport height.",
+      },
+      source: {
+        language: "tsx",
+        code: `
+const manyItems = Array.from({ length: 30 }, (_, i) => ({
+  icon: <FileText className="h-4 w-4" />,
+  label: \`Item \${i + 1}\`,
+  onClick: () => {},
+}));
+
+<PageAside
+  title="Navigation"
+  items={manyItems}
+  footer={() => <AsideText icon={<Tag className="h-4 w-4" />} label="Free plan" />}
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const manyItems = Array.from({ length: 30 }, (_, i) => ({
+      icon: <FileText className="h-4 w-4" />,
+      label: `Item ${i + 1}`,
+      onClick: () => {},
+    }));
+    return (
+      <div className="h-screen flex">
+        <PageAside
+          title="Navigation"
+          items={manyItems}
+          footer={() => (
+            <AsideText icon={<Tag className="h-4 w-4" />} label="Free plan" />
+          )}
+        />
+        <div className="flex-1 p-8 text-sm text-muted-foreground">
+          Scroll the sidebar nav — header and footer stay fixed.
+        </div>
+      </div>
+    );
+  },
+};
+
 export const CustomWidth: Story = {
   name: "Custom Open Width",
   parameters: {
