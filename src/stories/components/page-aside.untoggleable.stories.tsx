@@ -237,6 +237,41 @@ export const WithTextDivider: Story = {
   ),
 };
 
+export const StickyOnPageScroll: Story = {
+  name: "Sticky on Page Scroll",
+  parameters: {
+    docs: {
+      description: {
+        story: "When the surrounding page (not the nav) overflows and scrolls, the aside stays pinned to the viewport via `position: sticky`. Scroll the panel on the right to see it.",
+      },
+      source: {
+        language: "tsx",
+        code: `
+<div className="flex">
+  <PageAside title="Navigation" items={items} />
+  <div className="flex-1 p-8 space-y-4">
+    {/* tall page content that overflows and scrolls the document */}
+  </div>
+</div>`.trim(),
+      },
+    },
+  },
+  render: () => (
+    <div className="flex">
+      <PageAside
+        title="Navigation"
+        items={baseItems.map(item => ({ ...item, onClick: () => {} }))}
+      />
+      <div className="flex-1 p-8 space-y-4 text-sm text-muted-foreground">
+        <p className="font-medium text-foreground">Scroll down — the aside stays fixed.</p>
+        {Array.from({ length: 40 }, (_, i) => (
+          <p key={i}>Page content block {i + 1}</p>
+        ))}
+      </div>
+    </div>
+  ),
+};
+
 export const ScrollableNav: Story = {
   name: "Scrollable Nav",
   parameters: {
