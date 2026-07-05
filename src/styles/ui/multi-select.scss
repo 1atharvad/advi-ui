@@ -18,7 +18,7 @@
       @apply rounded-md border border-input bg-transparent px-3 py-1.5;
       @apply text-sm shadow-sm transition-colors;
       @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
-      @apply disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-auto;
+      @apply aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:pointer-events-auto;
       @apply hover:bg-transparent hover:text-inherit;
       @apply cursor-pointer gap-2;
 

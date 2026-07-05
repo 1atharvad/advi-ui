@@ -2,6 +2,7 @@ import { forwardRef, useState, useRef, useEffect, useId, type KeyboardEvent, typ
 import { ChevronDown, X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
+import { buttonVariants } from "./button-variants";
 import type { SelectOption } from "./select";
 
 export type { SelectOption };
@@ -18,7 +19,7 @@ interface MultiSelectProps {
   maxCount?: number;
 }
 
-export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
+export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
   (
     {
       options,
@@ -96,19 +97,18 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
           </label>
         )}
         <div className="vi-multi-select-wrapper">
-          <Button
+          <div
             ref={ref}
             id={id}
-            type="button"
             role="combobox"
+            tabIndex={disabled ? -1 : 0}
             aria-expanded={open}
             aria-haspopup="listbox"
             aria-controls={open ? listboxId : undefined}
             aria-multiselectable="true"
-            disabled={disabled}
-            variant="ghost"
-            className="vi-multi-select-trigger"
-            onClick={() => setOpen((o) => !o)}
+            aria-disabled={disabled || undefined}
+            className={cn(buttonVariants({ variant: "ghost" }), "vi-multi-select-trigger")}
+            onClick={() => !disabled && setOpen((o) => !o)}
             onKeyDown={handleKeyDown}
           >
             <span className="vi-multi-select-chips">
@@ -124,6 +124,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
                         <Button
                           type="button"
                           variant="ghost"
+                          disabled={disabled}
                           aria-label={`Remove ${lbl}`}
                           className="vi-multi-select-chip-remove h-auto w-auto p-0"
                           onClick={(e) => remove(val, e)}
@@ -140,7 +141,7 @@ export const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
               )}
             </span>
             <ChevronDown className={cn("vi-multi-select-icon", open && "vi-multi-select-icon-open")} />
-          </Button>
+          </div>
 
           {open && (
             <ul

@@ -90,7 +90,7 @@ export const InlineInText: Story = {
     },
   },
   render: () => (
-    <p className="text-sm leading-relaxed max-w-sm text-center">
+    <div className="text-sm leading-relaxed max-w-sm text-center">
       This library uses{" "}
       <HoverPopup text="Tailwind CSS">
         <p className="text-xs">Utility-first CSS framework for rapid UI development.</p>
@@ -100,6 +100,6 @@ export const InlineInText: Story = {
         <p className="text-xs">GreenSock Animation Platform — high-performance web animations.</p>
       </HoverPopup>
       {" "}for animations.
-    </p>
+    </div>
   ),
 };
