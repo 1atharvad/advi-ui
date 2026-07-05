@@ -4,6 +4,27 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.2.0] — 2026-07-05
+
+### Changed
+- Fonts (`@fontsource/raleway`, `@fontsource/unbounded`, `@fontsource/rubik`) no longer load automatically from the main entry — they now ship as a separate opt-in `advi-ui/fonts` export, cutting `advi-ui.css` from 712 KB to 73 KB. Consumers who want the bundled fonts must add `import "advi-ui/fonts"` alongside `advi-ui/styles`
+- `gsap` and `lucide-react` moved from `dependencies` to `peerDependencies` — they were being bundled into consumer apps twice (once inside `advi-ui`, once from the app's own install). Consumers must now have both installed directly
+- `sass` moved to `devDependencies` (build-time only)
+- `vite.config.ts` — build now emits two lib entries (`advi-ui` and `fonts`) with `cssCodeSplit` for independent CSS output per entry
+- Fixed 39 lint errors across the codebase: story files now import `Meta`/`StoryObj` from `@storybook/react-vite` instead of the raw renderer package; removed `no-explicit-any` in `utils.ts`; fixed ref-during-render violations in `SearchInput` and `modal.tsx`; split `buttonVariants` and the toast API out of `button.tsx`/`toast.tsx` into their own modules
+- Fixed stale `Introduction.mdx` (referenced a nonexistent `Toast` export, missing fonts import)
+
+### Removed
+- Unused `@fontsource-variable/geist` dependency — never imported, not referenced by the Tailwind font config
+
+### Added
+- `.github/workflows/ci.yml` — `checks` job runs lint, build, size-limit, and the Storybook/vitest test suite on every push/PR to `main`; a `release` job (gated on `checks` passing) runs Changesets-based release automation, opening a "Version Packages" PR when changesets are pending and publishing to npm on merge
+- Adopted `@changesets/cli` for version bumps and changelog entries going forward
+- Fixed the Storybook test runner, which was completely broken (`.storybook/vitest.setup.ts` never existed, and `vitest.config.ts` was missing the `@` path alias). All 32 story files now run as tests
+- `size-limit` with `@size-limit/file` to guard against bundle-size regressions on `advi-ui.es.js`, `advi-ui.css`, and `fonts.css`
+
+---
+
 ## [0.1.19] — 2026-06-30
 
 ### Changed

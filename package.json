@@ -33,7 +33,7 @@
     "build-storybook": "storybook build",
     "test": "vitest",
     "changeset": "changeset",
-    "version-packages": "changeset version",
+    "version-packages": "changeset version && node scripts/format-changelog-dates.mjs",
     "release": "npm run build:lib && changeset publish",
     "size": "npm run build:lib && size-limit"
   },
