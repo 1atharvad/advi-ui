@@ -31,8 +31,29 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest"
+    "test": "vitest",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run build:lib && changeset publish",
+    "size": "npm run build:lib && size-limit"
   },
+  "size-limit": [
+    {
+      "name": "advi-ui.es.js",
+      "path": "dist/advi-ui.es.js",
+      "limit": "80 KB"
+    },
+    {
+      "name": "advi-ui.css",
+      "path": "dist/advi-ui.css",
+      "limit": "20 KB"
+    },
+    {
+      "name": "fonts.css",
+      "path": "dist/fonts.css",
+      "limit": "500 KB"
+    }
+  ],
   "peerDependencies": {
     "gsap": "^3.15.0",
     "lucide-react": "^1.8.0",
@@ -52,10 +73,9 @@
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
-    "gsap": "^3.15.0",
-    "lucide-react": "^1.8.0",
-    "sass": "^1.99.0",
+    "@changesets/cli": "^2.31.0",
     "@eslint/js": "^9.39.4",
+    "@size-limit/file": "^12.1.0",
     "@storybook/addon-a11y": "^10.3.5",
     "@storybook/addon-designs": "^11.1.3",
     "@storybook/addon-docs": "^10.3.5",
@@ -74,10 +94,14 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "eslint-plugin-storybook": "^10.3.5",
     "globals": "^17.4.0",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.8.0",
     "playwright": "^1.59.1",
     "postcss": "^8.5.10",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "sass": "^1.99.0",
+    "size-limit": "^12.1.0",
     "storybook": "^10.3.5",
     "tailwindcss": "^3.4.19",
     "tailwindcss-animate": "^1.0.7",
