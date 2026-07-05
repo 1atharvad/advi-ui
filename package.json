@@ -16,10 +16,19 @@
       "import": "./dist/advi-ui.es.js",
       "require": "./dist/advi-ui.cjs.js"
     },
-    "./styles": "./dist/advi-ui.css",
-    "./themes": "./dist/advi-ui.css",
+    "./styles": {
+      "types": "./dist/advi-ui.css.d.ts",
+      "default": "./dist/advi-ui.css"
+    },
+    "./themes": {
+      "types": "./dist/advi-ui.css.d.ts",
+      "default": "./dist/advi-ui.css"
+    },
     "./themes/palette": "./src/styles/themes/_palette.scss",
-    "./fonts": "./dist/fonts.css"
+    "./fonts": {
+      "types": "./dist/fonts.d.ts",
+      "default": "./dist/fonts.css"
+    }
   },
   "files": [
     "dist"
@@ -30,7 +39,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:lib": "tsc -b && vite build --mode production && node scripts/build-fonts.mjs",
+    "build:lib": "tsc -b && vite build --mode production && node scripts/build-fonts.mjs && node scripts/write-css-type-stubs.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
