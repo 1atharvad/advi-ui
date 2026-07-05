@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:lib": "tsc -b && vite build --mode production",
+    "build:lib": "tsc -b && vite build --mode production && node scripts/build-fonts.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -55,7 +55,7 @@
     {
       "name": "fonts.css",
       "path": "dist/fonts.css",
-      "limit": "500 KB"
+      "limit": "10 KB"
     }
   ],
   "peerDependencies": {

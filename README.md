@@ -76,7 +76,7 @@ The style import brings in:
 - CSS custom properties for light and dark mode
 - Tailwind base layer
 
-The fonts import is separate and optional (~650KB) — skip it if you'd rather supply your own fonts or use `font-raleway`/`font-unbounded`/`font-rubik` Tailwind classes with fonts you already load.
+The fonts import is separate and optional — it's a small CSS file (`@font-face` declarations with `unicode-range`), so the browser only downloads the specific weight/subset files it actually needs for the text on the page, not the whole font family. Skip it if you'd rather supply your own fonts or use `font-raleway`/`font-unbounded`/`font-rubik` Tailwind classes with fonts you already load.
 
 ### Dark mode
 
