@@ -44,6 +44,8 @@ Accessible multi-value dropdown. Selected items appear as removable chips inside
 | \`disabled\` | \`boolean\` | \`false\` | Disables the entire control |
 | \`maxCount\` | \`number\` | \`3\` | Max chips shown before overflow badge |
 | \`className\` | \`string\` | — | Applied to the root container (use for width, e.g. \`w-full\`, \`w-64\`) |
+| \`searchable\` | \`boolean\` | \`false\` | Shows a filter input inside the dropdown; matches against option \`label\` (case-insensitive) |
+| \`loading\` | \`boolean\` | \`false\` | Replaces the options list with a spinner — for async options still being fetched |
         `.trim(),
       },
     },
@@ -61,6 +63,8 @@ Accessible multi-value dropdown. Selected items appear as removable chips inside
     label: { control: { type: "text" } },
     description: { control: { type: "text" } },
     maxCount: { control: { type: "number" } },
+    searchable: { control: { type: "boolean" } },
+    loading: { control: { type: "boolean" } },
   },
 };
 
@@ -431,4 +435,77 @@ const error = submitted && value.length === 0 ? "Please select at least one fram
       </div>
     );
   },
+};
+
+// ─── Search & loading ─────────────────────────────────────────────────────────
+
+export const Searchable: Story = {
+  name: "Searchable",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`searchable` adds a filter input inside the dropdown, matched against option `label` client-side.",
+      },
+      source: {
+        code: `
+const [value, setValue] = useState<string[]>([]);
+
+<MultiSelect
+  options={options}
+  value={value}
+  onChange={setValue}
+  label="Frameworks"
+  placeholder="Choose frameworks"
+  searchable
+  className="w-full"
+/>`.trim(),
+      },
+    },
+  },
+  render: () => {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <MultiSelect
+        options={options}
+        value={value}
+        onChange={setValue}
+        label="Frameworks"
+        placeholder="Choose frameworks"
+        searchable
+        className="w-full"
+      />
+    );
+  },
+};
+
+export const Loading: Story = {
+  name: "Loading",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`loading` replaces the options list with a spinner — for the window while options are still being fetched asynchronously.",
+      },
+      source: {
+        code: `
+<MultiSelect
+  options={[]}
+  label="Frameworks"
+  placeholder="Choose frameworks"
+  loading
+  className="w-full"
+/>`.trim(),
+      },
+    },
+  },
+  render: () => (
+    <MultiSelect
+      options={[]}
+      label="Frameworks"
+      placeholder="Choose frameworks"
+      loading
+      className="w-full"
+    />
+  ),
 };

@@ -69,8 +69,26 @@
     &-dropdown {
       @apply absolute z-50 mt-1 w-full;
       @apply rounded-md border border-input bg-popover shadow-md;
-      @apply overflow-auto max-h-60;
       @apply py-1;
+    }
+
+    &-search {
+      @apply w-full mb-1 px-3 py-1.5;
+      @apply text-sm bg-transparent border-b border-input;
+      @apply placeholder:text-muted-foreground;
+      @apply focus-visible:outline-none;
+    }
+
+    &-listbox {
+      @apply overflow-auto max-h-60;
+    }
+
+    &-loading {
+      @apply p-2;
+    }
+
+    &-empty {
+      @apply px-3 py-2 text-sm text-muted-foreground;
     }
 
     &-option {

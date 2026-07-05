@@ -1,8 +1,9 @@
-import { forwardRef, useState, useRef, useEffect, useId, type KeyboardEvent, type MouseEvent } from "react";
+import { forwardRef, useState, useRef, useEffect, useId, useMemo, type KeyboardEvent, type MouseEvent } from "react";
 import { ChevronDown, X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import { buttonVariants } from "./button-variants";
+import { Loading } from "./loading";
 import type { SelectOption } from "./select";
 
 export type { SelectOption };
@@ -17,6 +18,8 @@ interface MultiSelectProps {
   disabled?: boolean;
   className?: string;
   maxCount?: number;
+  searchable?: boolean;
+  loading?: boolean;
 }
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
@@ -31,14 +34,24 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       disabled,
       className,
       maxCount = 3,
+      searchable = false,
+      loading = false,
     },
     ref
   ) => {
     const [open, setOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [query, setQuery] = useState("");
     const containerRef = useRef<HTMLDivElement>(null);
+    const searchRef = useRef<HTMLInputElement>(null);
     const id = useId();
     const listboxId = `${id}-listbox`;
+
+    const filteredOptions = useMemo(() => {
+      if (!searchable || !query.trim()) return options;
+      const q = query.trim().toLowerCase();
+      return options.filter((o) => o.label.toLowerCase().includes(q));
+    }, [options, searchable, query]);
 
     const toggle = (optValue: string) => {
       const next = value.includes(optValue)
@@ -61,19 +74,39 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       return () => document.removeEventListener("mousedown", handler);
     }, [open]);
 
+    useEffect(() => {
+      if (open && searchable) {
+        setQuery("");
+        searchRef.current?.focus();
+      }
+    }, [open, searchable]);
+
+    useEffect(() => {
+      setActiveIndex(0);
+    }, [query]);
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (disabled) return;
       switch (e.key) {
         case "Enter":
-        case " ":
           e.preventDefault();
           if (!open) { setOpen(true); return; }
-          if (!options[activeIndex]?.disabled) toggle(options[activeIndex].value);
+          if (filteredOptions[activeIndex] && !filteredOptions[activeIndex].disabled) {
+            toggle(filteredOptions[activeIndex].value);
+          }
+          break;
+        case " ":
+          if (searchable && open) break;
+          e.preventDefault();
+          if (!open) { setOpen(true); return; }
+          if (filteredOptions[activeIndex] && !filteredOptions[activeIndex].disabled) {
+            toggle(filteredOptions[activeIndex].value);
+          }
           break;
         case "ArrowDown":
           e.preventDefault();
           if (!open) { setOpen(true); return; }
-          setActiveIndex((i) => Math.min(i + 1, options.length - 1));
+          setActiveIndex((i) => Math.min(i + 1, filteredOptions.length - 1));
           break;
         case "ArrowUp":
           e.preventDefault();
@@ -144,41 +177,62 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
           </div>
 
           {open && (
-            <ul
-              id={listboxId}
-              role="listbox"
-              aria-multiselectable="true"
-              aria-label={label}
-              className="vi-multi-select-dropdown"
-            >
-              {options.map((opt, i) => {
-                const isSelected = value.includes(opt.value);
-                return (
-                  <li
-                    key={opt.value}
-                    role="option"
-                    aria-selected={isSelected}
-                    aria-disabled={opt.disabled}
-                    className={cn(
-                      "vi-multi-select-option",
-                      isSelected && "vi-multi-select-option-selected",
-                      opt.disabled && "vi-multi-select-option-disabled",
-                      i === activeIndex && "vi-multi-select-option-active"
-                    )}
-                    onMouseEnter={() => !opt.disabled && setActiveIndex(i)}
-                    onClick={() => {
-                      if (opt.disabled) return;
-                      toggle(opt.value);
-                    }}
-                  >
-                    <span className={cn("vi-multi-select-checkbox", isSelected && "vi-multi-select-checkbox-checked")}>
-                      {isSelected && <Check className="h-3 w-3" />}
-                    </span>
-                    {opt.label}
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="vi-multi-select-dropdown">
+              {searchable && !loading && (
+                <input
+                  ref={searchRef}
+                  type="text"
+                  className="vi-multi-select-search"
+                  placeholder="Search..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                />
+              )}
+
+              {loading ? (
+                <Loading text="Loading..." className="vi-multi-select-loading" />
+              ) : (
+                <ul
+                  id={listboxId}
+                  role="listbox"
+                  aria-multiselectable="true"
+                  aria-label={label}
+                  className="vi-multi-select-listbox"
+                >
+                  {filteredOptions.length === 0 && (
+                    <li className="vi-multi-select-empty">No options found</li>
+                  )}
+                  {filteredOptions.map((opt, i) => {
+                    const isSelected = value.includes(opt.value);
+                    return (
+                      <li
+                        key={opt.value}
+                        role="option"
+                        aria-selected={isSelected}
+                        aria-disabled={opt.disabled}
+                        className={cn(
+                          "vi-multi-select-option",
+                          isSelected && "vi-multi-select-option-selected",
+                          opt.disabled && "vi-multi-select-option-disabled",
+                          i === activeIndex && "vi-multi-select-option-active"
+                        )}
+                        onMouseEnter={() => !opt.disabled && setActiveIndex(i)}
+                        onClick={() => {
+                          if (opt.disabled) return;
+                          toggle(opt.value);
+                        }}
+                      >
+                        <span className={cn("vi-multi-select-checkbox", isSelected && "vi-multi-select-checkbox-checked")}>
+                          {isSelected && <Check className="h-3 w-3" />}
+                        </span>
+                        {opt.label}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
           )}
         </div>
         {description && <p className="vi-multi-select-description">{description}</p>}

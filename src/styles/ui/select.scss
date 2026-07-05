@@ -19,7 +19,7 @@
       @apply text-sm shadow-sm transition-colors gap-2.5;
       @apply placeholder:text-muted-foreground;
       @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
-      @apply disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-auto;
+      @apply aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:pointer-events-auto;
       @apply hover:bg-transparent hover:text-inherit;
       @apply cursor-pointer;
 
@@ -30,6 +30,17 @@
 
     &-placeholder {
       @apply text-muted-foreground;
+    }
+
+    &-clear {
+      @apply inline-flex items-center justify-center shrink-0;
+      @apply rounded-sm opacity-60 transition-opacity;
+      @apply hover:opacity-100 hover:bg-transparent hover:text-inherit;
+      @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
+
+      &:focus {
+        border-color: transparent;
+      }
     }
 
     &-icon {
@@ -43,8 +54,26 @@
     &-dropdown {
       @apply absolute z-50 mt-1 w-full;
       @apply rounded-md border border-input bg-popover shadow-md;
-      @apply overflow-auto max-h-60;
       @apply py-1;
+    }
+
+    &-search {
+      @apply w-full mb-1 px-3 py-1.5;
+      @apply text-sm bg-transparent border-b border-input;
+      @apply placeholder:text-muted-foreground;
+      @apply focus-visible:outline-none;
+    }
+
+    &-listbox {
+      @apply overflow-auto max-h-60;
+    }
+
+    &-loading {
+      @apply p-2;
+    }
+
+    &-empty {
+      @apply px-3 py-2 text-sm text-muted-foreground;
     }
 
     &-option {
