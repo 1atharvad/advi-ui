@@ -32,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,6 +45,9 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - run: npm ci
+      # Trusted Publishing (OIDC) requires npm CLI >= 11.5.1; setup-node's
+      # bundled npm on ubuntu-latest may be older.
+      - run: npm install -g npm@latest
 
       - name: Check for pending changesets
         id: changesets
@@ -56,9 +60,6 @@ jobs:
 
       - name: Version, commit, and publish
         if: steps.changesets.outputs.pending == 'true'
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm run version-packages
           git config user.name "github-actions[bot]"
