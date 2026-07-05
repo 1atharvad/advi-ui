@@ -53,7 +53,7 @@ yarn add advi-ui
 pnpm add advi-ui
 ```
 
-> **Peer dependencies** — make sure your project has `react >= 18` and `react-dom >= 18` installed.
+> **Peer dependencies** — make sure your project has `react >= 18`, `react-dom >= 18`, `gsap`, and `lucide-react` installed.
 
 ---
 
@@ -64,6 +64,7 @@ Import components and styles once at the root of your app:
 ```tsx
 import { Button } from "advi-ui";
 import "advi-ui/styles";
+import "advi-ui/fonts"; // optional — self-hosted Raleway, Unbounded, Rubik
 
 export default function App() {
   return <Button variant="outline">Hello</Button>;
@@ -73,8 +74,9 @@ export default function App() {
 The style import brings in:
 - All component styles (SCSS, BEM `vi-*` namespace)
 - CSS custom properties for light and dark mode
-- Raleway, Unbounded, and Rubik fonts (self-hosted via `@fontsource`)
 - Tailwind base layer
+
+The fonts import is separate and optional (~650KB) — skip it if you'd rather supply your own fonts or use `font-raleway`/`font-unbounded`/`font-rubik` Tailwind classes with fonts you already load.
 
 ### Dark mode
 

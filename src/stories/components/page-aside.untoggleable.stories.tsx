@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PageAside, AsideBtn, AsideText } from "@/components/PageAside";
 import { Home, Settings, Users, BarChart, FileText, LogOut, Tag } from "lucide-react";
 

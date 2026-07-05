@@ -4,6 +4,42 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.1.19] — 2026-06-30
+
+### Changed
+- `PageAside` — aside now uses `sticky top-0` so it stays pinned to the viewport when the surrounding page content scrolls past it, independent of the nav's own internal scroll
+- Added toggleable/untoggleable stories demonstrating both scroll behaviors (page scroll vs. internal nav scroll)
+
+---
+
+## [0.1.18] — 2026-06-30
+
+### Changed
+- `PageAside` — aside locked to `h-screen` with header, footer, and toggle fixed in place so only the nav list scrolls when items overflow
+- `PageAside` — nav items marked `shrink-0` to stop them from shrinking instead of scrolling
+- Added toggleable/untoggleable stories covering the internal nav scroll behavior
+
+---
+
+## [0.1.17] — skipped
+
+---
+
+## [0.1.16] — 2026-06-25
+
+### Added
+- `AsideText` component to `PageAside` — non-interactive display item sharing `AsideBtn`'s visual structure, with optional icon, active, and tooltip props
+- `type="divider"` support on `AsideText` to render a section header between nav button groups; in collapsed mode dividers render as a `border-t` line, with first/last dividers suppressed to avoid orphaned lines
+- `className` prop on `AsideBtn`
+
+### Changed
+- `AsideItem.icon` and `onClick` made optional so items without `onClick` render as `AsideText` automatically
+- Added `vi-aside-item-text` and `vi-aside-item-divider-line` SCSS classes
+- Added source code blocks to all `Switch` stories
+- Added `AsideText` and divider stories to both `PageAside` story files
+
+---
+
 ## [0.1.15] — 2026-05-16
 
 ### Changed

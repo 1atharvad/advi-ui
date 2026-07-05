@@ -1,19 +1,6 @@
-import React, {useState, useCallback, useEffect, type ReactNode } from "react";
+import { useState, useCallback, useEffect, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
-
-// Types
-type ToastVariant = "default" | "success" | "error" | "warning" | "info"
-
-interface ToastItem {
-  id: string
-  variant: ToastVariant
-  title?: string
-  description?: string
-  duration?: number
-}
-
-// Global toast state
-let globalAddToast: ((toast: Omit<ToastItem, "id">) => void) | null = null
+import { setGlobalAddToast, type ToastItem } from "./toast-store";
 
 type ToastPosition = "left" | "right"
 
@@ -34,9 +21,9 @@ export const ToastProvider = ({ children, position = "right" }: { children: Reac
 
   // Set global function on mount
   useEffect(() => {
-    globalAddToast = addToast
+    setGlobalAddToast(addToast)
     return () => {
-      globalAddToast = null
+      setGlobalAddToast(null)
     }
   }, [addToast])
 
@@ -72,48 +59,4 @@ const Toast = ({ variant, title, description }: ToastItem) => {
       </div>
     </div>
   )
-}
-
-// Convenience functions - can be used anywhere
-export const toast = {
-  success: (titleOrDescription: string, description?: string) => {
-    const hasDescription = description !== undefined
-    globalAddToast?.({
-      variant: "success",
-      title: hasDescription ? titleOrDescription : undefined,
-      description: hasDescription ? description : titleOrDescription,
-    })
-  },
-  error: (titleOrDescription: string, description?: string) => {
-    const hasDescription = description !== undefined
-    globalAddToast?.({
-      variant: "error",
-      title: hasDescription ? titleOrDescription : undefined,
-      description: hasDescription ? description : titleOrDescription,
-    })
-  },
-  warning: (titleOrDescription: string, description?: string) => {
-    const hasDescription = description !== undefined
-    globalAddToast?.({
-      variant: "warning",
-      title: hasDescription ? titleOrDescription : undefined,
-      description: hasDescription ? description : titleOrDescription,
-    })
-  },
-  info: (titleOrDescription: string, description?: string) => {
-    const hasDescription = description !== undefined
-    globalAddToast?.({
-      variant: "info",
-      title: hasDescription ? titleOrDescription : undefined,
-      description: hasDescription ? description : titleOrDescription,
-    })
-  },
-  default: (titleOrDescription: string, description?: string) => {
-    const hasDescription = description !== undefined
-    globalAddToast?.({
-      variant: "default",
-      title: hasDescription ? titleOrDescription : undefined,
-      description: hasDescription ? description : titleOrDescription,
-    })
-  },
 }

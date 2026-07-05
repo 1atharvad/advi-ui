@@ -13,4 +13,3 @@ declare module "*.css" {
 declare module "@fontsource/raleway";
 declare module "@fontsource/unbounded";
 declare module "@fontsource/rubik";
-declare module "@fontsource-variable/geist";

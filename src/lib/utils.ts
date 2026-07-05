@@ -14,7 +14,7 @@ export const truncate = (str: string, maxLength: number, suffix = "..."): string
   return str.slice(0, maxLength - suffix.length) + suffix;
 };
 
-export const throttle = <T extends (...args: any[]) => void>(func: T, limit: number) => {
+export const throttle = <T extends (...args: never[]) => void>(func: T, limit: number) => {
   let inThrottle = false;
   return (...args: Parameters<T>) => {
     if (!inThrottle) {
@@ -25,7 +25,7 @@ export const throttle = <T extends (...args: any[]) => void>(func: T, limit: num
   };
 };
 
-export const debounce = <T extends (...args: any[]) => void>(func: T, delay: number) => {
+export const debounce = <T extends (...args: never[]) => void>(func: T, delay: number) => {
   let timeoutId: ReturnType<typeof setTimeout>;
   const debounced = (...args: Parameters<T>) => {
     clearTimeout(timeoutId);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Radio, RadioGroup } from "@/components/ui/radio";
 import { FormField } from "@/components/ui/form-field";
 

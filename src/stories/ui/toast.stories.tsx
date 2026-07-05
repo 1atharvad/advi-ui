@@ -1,6 +1,7 @@
 import React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
-import { ToastProvider, toast } from "@/components/ui/toast"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { ToastProvider } from "@/components/ui/toast"
+import { toast } from "@/components/ui/toast-store"
 import { Button } from "@/components/ui/button"
 
 // Subcomponents

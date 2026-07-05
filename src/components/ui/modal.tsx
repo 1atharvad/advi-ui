@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useState, useId, type ReactNode } from "react";
+import { useEffect, useRef, useCallback, useId, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { gsap } from "@/lib/gsap";
@@ -42,13 +42,10 @@ export const Modal = ({
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
   const descId = useId();
-  const [modalRootEl, setModalRootEl] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setModalRootEl(
-      (modalRootSelector ? document.querySelector<HTMLElement>(modalRootSelector) : null) ?? document.body
-    );
-  }, [modalRootSelector]);
+  const modalRootEl =
+    typeof document === "undefined"
+      ? null
+      : (modalRootSelector ? document.querySelector<HTMLElement>(modalRootSelector) : null) ?? document.body;
 
   const createTimeline = useCallback(() => {
     const overlay = overlayRef.current;

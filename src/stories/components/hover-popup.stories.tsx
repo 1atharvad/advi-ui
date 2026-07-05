@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { HoverPopup } from "@/components/HoverPopup";
 
 const meta: Meta<typeof HoverPopup> = {

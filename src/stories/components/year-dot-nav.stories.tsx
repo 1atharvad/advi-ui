@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { YearDotNav } from "@/components/YearDotNav";
 import type { YearDotNavItem, YearDotNavScrollAlign } from "@/components/YearDotNav";
 

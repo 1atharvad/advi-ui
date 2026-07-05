@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { toast, ToastProvider } from "@/components/ui/toast";
+import { ToastProvider } from "@/components/ui/toast";
+import { toast } from "@/components/ui/toast-store";
 import { cn } from "@/lib/utils";
 
 interface ScrollAnimationBtnProps {

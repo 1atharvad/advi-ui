@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useId, useMemo, type ChangeEvent, type KeyboardEvent } from "react";
+import { useState, useRef, useEffect, useId, type ChangeEvent, type KeyboardEvent } from "react";
 import { Search, X } from "lucide-react";
 import { cn, debounce } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -38,26 +38,29 @@ export const SearchInput = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
   const onSearchRef = useRef(onSearch);
-  onSearchRef.current = onSearch;
+  useEffect(() => {
+    onSearchRef.current = onSearch;
+  });
   const id = useId();
 
-  const debouncedSearch = useMemo(
-    () => debounce((v: string) => onSearchRef.current?.(v), debounceMs),
-    [debounceMs]
-  );
+  const debouncedSearchRef = useRef<(((v: string) => void) & { cancel: () => void }) | null>(null);
 
-  useEffect(() => () => debouncedSearch.cancel(), [debouncedSearch]);
+  useEffect(() => {
+    const debounced = debounce((v: string) => onSearchRef.current?.(v), debounceMs);
+    debouncedSearchRef.current = debounced;
+    return () => debounced.cancel();
+  }, [debounceMs]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     if (!isControlled) setInternalValue(newValue);
     onChange?.(e);
-    if (!showButton) debouncedSearch(newValue);
+    if (!showButton) debouncedSearchRef.current?.(newValue);
   };
 
   const handleClear = () => {
     if (!isControlled) setInternalValue("");
-    debouncedSearch.cancel();
+    debouncedSearchRef.current?.cancel();
     onSearch?.("");
     onClear?.();
     inputRef.current?.focus();
@@ -69,13 +72,13 @@ export const SearchInput = ({
       handleClear();
     }
     if (e.key === "Enter" && showButton) {
-      debouncedSearch.cancel();
+      debouncedSearchRef.current?.cancel();
       onSearch?.(value);
     }
   };
 
   const handleButtonClick = () => {
-    debouncedSearch.cancel();
+    debouncedSearchRef.current?.cancel();
     onSearch?.(value);
   };
 

@@ -16,10 +16,13 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
+      entry: {
+        "advi-ui": path.resolve(__dirname, "src/index.ts"),
+        fonts: path.resolve(__dirname, "src/fonts.ts"),
+      },
       name: "AdviUi",
       formats: ["es", "cjs"],
-      fileName: (format) => `advi-ui.${format}.js`,
+      fileName: (format, entryName) => `${entryName}.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],
@@ -31,6 +34,7 @@ export default defineConfig({
         },
       },
     },
+    cssCodeSplit: true,
     sourcemap: true,
     emptyOutDir: true,
     copyPublicDir: false,

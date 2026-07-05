@@ -1,35 +1,9 @@
 import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import { type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import React from "react";
 import { forwardRef, type ButtonHTMLAttributes } from "react"
-
-const buttonVariants = cva(
-  "vi-btn",
-  {
-    variants: {
-      variant: {
-        default: "vi-btn-variant-default",
-        destructive: "vi-btn-variant-destructive",
-        outline: "vi-btn-variant-outline",
-        secondary: "vi-btn-variant-secondary",
-        ghost: "vi-btn-variant-ghost",
-        link: "vi-btn-variant-link",
-      },
-      size: {
-        default: "vi-btn-size-default",
-        sm: "vi-btn-size-sm",
-        lg: "vi-btn-size-lg",
-        icon: "vi-btn-size-icon",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
+import { buttonVariants } from "./button-variants"
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
@@ -52,4 +26,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = "Button"
 
-export { Button, buttonVariants }
+export { Button }
