@@ -61,10 +61,12 @@ jobs:
       - name: Version, commit, and publish
         if: steps.changesets.outputs.pending == 'true'
         run: |
+          SUMMARY=$(node scripts/changeset-summary.mjs)
           npm run version-packages
+          NEW_VERSION=$(node -p "require('./package.json').version")
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "chore: release"
+          git commit -m "v$NEW_VERSION: $SUMMARY"
           npm run release
           git push origin HEAD:main --follow-tags

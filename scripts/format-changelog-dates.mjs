@@ -30,9 +30,40 @@ if (introIndex !== -1) {
   lines.splice(titleIndex + 1, 0, "", ...introBlock);
 }
 
-let content = lines.join("\n");
+// Add brackets + date to bare "## 1.2.3" headings before checking for
+// separators below, so the newly added heading is recognized too.
+const headingRe = /^## (\d+\.\d+\.\d+(?:-[\w.]+)?)$/;
+for (let i = 0; i < lines.length; i++) {
+  const match = lines[i].match(headingRe);
+  if (match) lines[i] = `## [${match[1]}] — ${today}`;
+}
 
-const headingRe = /^## (\d+\.\d+\.\d+(?:-[\w.]+)?)$/gm;
-content = content.replace(headingRe, (_match, version) => `## [${version}] — ${today}`);
+// Ensure every "## [" heading is preceded by exactly one blank line, and
+// every one after the first also has a "---" separator before that blank
+// line — trimming whatever trailing blanks/separator are already there
+// and re-inserting the canonical form, so this is correct regardless of
+// what changeset version left behind.
+const withSeparators = [];
+let sawFirstHeading = false;
+for (const line of lines) {
+  if (/^## \[/.test(line)) {
+    while (withSeparators.length && withSeparators[withSeparators.length - 1] === "") {
+      withSeparators.pop();
+    }
+    if (sawFirstHeading) {
+      if (withSeparators[withSeparators.length - 1] === "---") {
+        withSeparators.pop();
+        while (withSeparators.length && withSeparators[withSeparators.length - 1] === "") {
+          withSeparators.pop();
+        }
+      }
+      withSeparators.push("", "---", "");
+    } else {
+      withSeparators.push("");
+    }
+    sawFirstHeading = true;
+  }
+  withSeparators.push(line);
+}
 
-writeFileSync(path, content);
+writeFileSync(path, withSeparators.join("\n"));
