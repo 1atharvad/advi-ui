@@ -4,6 +4,14 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.3.0] — 2026-07-17
+
+### Minor Changes
+
+- 9feb04b: Add `Menu` component — an accessible action-menu widget (trigger + dropdown of items), for cases like a "..." actions button rather than a form control. Supports icons, keyboard shortcuts, disabled/destructive items, separators, and group labels. Keyboard navigation follows the same combobox pattern as `Select`/`MultiSelect`: all key handling lives on the trigger, with `aria-activedescendant` tracking the highlighted item.
+
+---
+
 ## [0.2.4] — 2026-07-05
 
 ### Patch Changes
