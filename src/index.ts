@@ -17,6 +17,7 @@ export * from './components/ui/form-field';
 export * from './components/ui/input';
 export * from './components/ui/link';
 export * from './components/ui/loading';
+export * from './components/ui/menu';
 export * from './components/ui/modal';
 export * from './components/ui/multi-select';
 export * from './components/ui/radio';

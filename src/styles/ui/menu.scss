@@ -1,0 +1,59 @@
+@layer components {
+  .vi-menu {
+    &-container {
+      @apply relative inline-block;
+    }
+
+    &-content {
+      @apply absolute z-50 left-0 top-full mt-1 min-w-[10rem];
+      @apply rounded-md border border-input bg-popover text-popover-foreground shadow-md;
+      @apply py-1;
+
+      &-align-end {
+        @apply left-auto right-0;
+      }
+    }
+
+    &-label {
+      @apply px-3 py-1.5 text-xs font-medium text-muted-foreground;
+    }
+
+    &-separator {
+      @apply my-1 h-px bg-border;
+    }
+
+    &-item {
+      @apply flex items-center gap-2 px-3 py-2;
+      @apply text-sm cursor-pointer select-none;
+      @apply transition-colors;
+
+      &-active {
+        @apply bg-accent text-accent-foreground;
+      }
+
+      &-destructive {
+        @apply text-destructive;
+
+        &.vi-menu-item-active {
+          @apply bg-destructive/10 text-destructive;
+        }
+      }
+
+      &-disabled {
+        @apply opacity-50 cursor-not-allowed pointer-events-none;
+      }
+
+      &-icon {
+        @apply flex h-4 w-4 shrink-0 items-center justify-center;
+      }
+
+      &-label {
+        @apply flex-1;
+      }
+
+      &-shortcut {
+        @apply text-xs text-muted-foreground tracking-widest;
+      }
+    }
+  }
+}
