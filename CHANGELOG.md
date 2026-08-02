@@ -4,6 +4,18 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.6.0] — 2026-08-02
+
+### Minor Changes
+
+- 6e004f3: Add `tagline`, `credits`, and `creditsPosition` props to `Footer`. `tagline` renders under the logo; `credits` accepts a `ReactNode` (e.g. "Built with `<a>advi-ui</a>`") and defaults to sitting next to `copyright` in the bottom bar, or set `creditsPosition="top"` to render it as its own full-width row above the divider instead.
+
+### Patch Changes
+
+- be13aee: Bump `vitest`, `@vitest/coverage-v8`, and `@vitest/browser-playwright` to `^4.1.10` and refresh the lockfile, resolving all `npm audit` findings (previously 13, now 0). All affected packages are devDependencies used only for building/testing advi-ui itself — none are bundled into the published `dist/` output, so this has no runtime effect for consumers.
+
+---
+
 ## [0.5.1] — 2026-08-02
 
 ### Patch Changes
