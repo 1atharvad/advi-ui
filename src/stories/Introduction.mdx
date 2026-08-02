@@ -43,3 +43,17 @@ Or skip both and define the same variables yourself in a `:root` block —
 see [THEMING.md](https://github.com/1atharvad/advi-ui/blob/main/THEMING.md)
 in the repo for the full variable contract and value format (HSL triplet,
 no `hsl()` wrapper).
+
+## Icons
+
+Components default to [lucide-react](https://lucide.dev) icons. Any
+component with a built-in icon (`Header`, `PageAside`, `SearchInput`,
+`Select`, `MultiSelect`, `Modal`, `Dialog`) accepts icon-override props to
+swap in any icon library per-instance — Phosphor, Radix Icons, Heroicons,
+your own SVGs:
+
+```tsx
+import { MagnifyingGlass, X } from '@phosphor-icons/react';
+
+<SearchInput searchIcon={<MagnifyingGlass />} clearIcon={<X />} />
+```

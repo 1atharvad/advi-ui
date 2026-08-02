@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useId, type ReactNode } from "react";
+import { useEffect, useRef, useCallback, useId, cloneElement, type ReactNode, type ReactElement } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { gsap } from "@/lib/gsap";
@@ -15,6 +15,7 @@ interface ModalProps {
   className?: string;
   modalRootSelector?: string,
   duration?: number;
+  closeIcon?: ReactElement<{ className?: string }>;
 }
 
 const getCSSVar = (el: HTMLElement, prop: string): [number, number] => {
@@ -34,6 +35,7 @@ export const Modal = ({
   className,
   modalRootSelector,
   duration = 1,
+  closeIcon = <X />,
 }: ModalProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -130,7 +132,7 @@ export const Modal = ({
               onClick={() => onOpenChange(false)}
               aria-label="Close"
             >
-              <X className="h-4 w-4" />
+              {cloneElement(closeIcon, { className: cn("h-4 w-4", closeIcon.props.className) })}
               <span className="sr-only">Close</span>
             </button>
 

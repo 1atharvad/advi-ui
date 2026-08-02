@@ -1,4 +1,4 @@
-import { forwardRef, useState, useRef, useEffect, useId, useMemo, type KeyboardEvent, type MouseEvent as ReactMouseEvent } from "react";
+import { forwardRef, useState, useRef, useEffect, useId, useMemo, cloneElement, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactElement } from "react";
 import { ChevronDown, Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
@@ -24,6 +24,9 @@ interface SelectProps {
   searchable?: boolean;
   loading?: boolean;
   clearable?: boolean;
+  clearIcon?: ReactElement<{ className?: string }>;
+  chevronIcon?: ReactElement<{ className?: string }>;
+  checkIcon?: ReactElement<{ className?: string }>;
 }
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(
@@ -41,6 +44,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
       searchable = false,
       loading = false,
       clearable = false,
+      clearIcon = <X />,
+      chevronIcon = <ChevronDown />,
+      checkIcon = <Check />,
     },
     ref
   ) => {
@@ -166,10 +172,12 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                 className="vi-select-clear h-auto w-auto p-0"
                 onClick={handleClear}
               >
-                <X className="h-3.5 w-3.5" />
+                {cloneElement(clearIcon, { className: cn("h-3.5 w-3.5", clearIcon.props.className) })}
               </Button>
             )}
-            <ChevronDown className={cn("vi-select-icon", open && "vi-select-icon-open")} />
+            {cloneElement(chevronIcon, {
+              className: cn("vi-select-icon", open && "vi-select-icon-open", chevronIcon.props.className),
+            })}
           </div>
 
           {name && <input type="hidden" name={name} value={value ?? ""} />}
@@ -215,7 +223,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                         setOpen(false);
                       }}
                     >
-                      <Check className="vi-select-check" />
+                      {cloneElement(checkIcon, { className: cn("vi-select-check", checkIcon.props.className) })}
                       {opt.label}
                     </li>
                   ))}

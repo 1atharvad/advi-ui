@@ -1,4 +1,4 @@
-import { forwardRef, useState, useRef, useEffect, useId, useMemo, type KeyboardEvent, type MouseEvent } from "react";
+import { forwardRef, useState, useRef, useEffect, useId, useMemo, cloneElement, type KeyboardEvent, type MouseEvent, type ReactElement } from "react";
 import { ChevronDown, X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
@@ -20,6 +20,9 @@ interface MultiSelectProps {
   maxCount?: number;
   searchable?: boolean;
   loading?: boolean;
+  removeIcon?: ReactElement<{ className?: string }>;
+  chevronIcon?: ReactElement<{ className?: string }>;
+  checkIcon?: ReactElement<{ className?: string }>;
 }
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
@@ -36,6 +39,9 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       maxCount = 3,
       searchable = false,
       loading = false,
+      removeIcon = <X />,
+      chevronIcon = <ChevronDown />,
+      checkIcon = <Check />,
     },
     ref
   ) => {
@@ -162,7 +168,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                           className="vi-multi-select-chip-remove h-auto w-auto p-0"
                           onClick={(e) => remove(val, e)}
                         >
-                          <X className="h-3 w-3" />
+                          {cloneElement(removeIcon, { className: cn("h-3 w-3", removeIcon.props.className) })}
                         </Button>
                       </span>
                     );
@@ -173,7 +179,9 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                 </>
               )}
             </span>
-            <ChevronDown className={cn("vi-multi-select-icon", open && "vi-multi-select-icon-open")} />
+            {cloneElement(chevronIcon, {
+              className: cn("vi-multi-select-icon", open && "vi-multi-select-icon-open", chevronIcon.props.className),
+            })}
           </div>
 
           {open && (
@@ -224,7 +232,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                         }}
                       >
                         <span className={cn("vi-multi-select-checkbox", isSelected && "vi-multi-select-checkbox-checked")}>
-                          {isSelected && <Check className="h-3 w-3" />}
+                          {isSelected && cloneElement(checkIcon, { className: cn("h-3 w-3", checkIcon.props.className) })}
                         </span>
                         {opt.label}
                       </li>

@@ -92,6 +92,33 @@ Add the `dark` class to your `<html>` element to activate dark mode:
 document.documentElement.classList.toggle("dark");
 ```
 
+### Icons
+
+Components ship with [lucide-react](https://lucide.dev) icons by default. Any
+component with a built-in icon (`Header`, `PageAside`, `SearchInput`,
+`Select`, `MultiSelect`, `Modal`, `Dialog`) accepts icon-override props — pass
+your own element from any icon library (Phosphor, Radix Icons, Heroicons,
+custom SVGs) to replace it per-instance:
+
+```tsx
+import { MagnifyingGlass, X } from "@phosphor-icons/react";
+
+<SearchInput searchIcon={<MagnifyingGlass />} clearIcon={<X />} />
+```
+
+| Component | Props |
+|---|---|
+| `Header` | `menuIcon`, `linkIcon` |
+| `PageAside` | `toggleIcon` (a `(open) => ReactNode` function) |
+| `SearchInput` | `searchIcon`, `clearIcon` |
+| `Select` | `chevronIcon`, `checkIcon`, `clearIcon` |
+| `MultiSelect` | `chevronIcon`, `checkIcon`, `removeIcon` |
+| `Modal` | `closeIcon` |
+| `Dialog` (`DialogContent`) | `closeIcon` |
+
+Structural styling (sizing, rotation on open/close) is merged onto whatever
+element you pass, so overrides don't need to replicate the built-in classes.
+
 ---
 
 ## Components

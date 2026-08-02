@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Menu, ChevronRight } from "lucide-react";
 import { LogoLink, Link } from "@/components/ui/link";
 import { Button } from "./ui/button";
@@ -12,9 +12,17 @@ interface HeaderProps {
   };
   ctaLinks?: Link[];
   modalRootSelector?: string;
+  menuIcon?: ReactNode;
+  linkIcon?: ReactNode;
 }
 
-export const Header = ({ logo, ctaLinks = [], modalRootSelector }: HeaderProps) => {
+export const Header = ({
+  logo,
+  ctaLinks = [],
+  modalRootSelector,
+  menuIcon = <Menu size={24} aria-hidden="true" />,
+  linkIcon = <ChevronRight size={16} aria-hidden="true" />,
+}: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -30,7 +38,7 @@ export const Header = ({ logo, ctaLinks = [], modalRootSelector }: HeaderProps) 
             modalRootSelector={modalRootSelector}
             trigger={
               <Button variant="ghost" title="Menu Button" aria-label="Open menu">
-                <Menu size={24} aria-hidden="true" />
+                {menuIcon}
               </Button>
             }
           >
@@ -43,7 +51,7 @@ export const Header = ({ logo, ctaLinks = [], modalRootSelector }: HeaderProps) 
                   className="flex items-center justify-between text-sm font-medium hover:underline"
                 >
                   <span>{link.text}</span>
-                  <ChevronRight size={16} aria-hidden="true" />
+                  {linkIcon}
                 </Link>
               ))}
             </div>

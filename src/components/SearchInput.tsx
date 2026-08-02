@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useId, type ChangeEvent, type KeyboardEvent } from "react";
+import { useState, useRef, useEffect, useId, cloneElement, type ChangeEvent, type KeyboardEvent, type ReactNode, type ReactElement } from "react";
 import { Search, X } from "lucide-react";
 import { cn, debounce } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,8 @@ interface SearchInputProps {
   onSearch?: (value: string) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onClear?: () => void;
+  searchIcon?: ReactElement<{ className?: string }>;
+  clearIcon?: ReactNode;
 }
 
 export const SearchInput = ({
@@ -31,6 +33,8 @@ export const SearchInput = ({
   onSearch,
   onChange,
   onClear,
+  searchIcon = <Search aria-hidden="true" />,
+  clearIcon = <X aria-hidden="true" />,
 }: SearchInputProps) => {
   const isControlled = controlledValue !== undefined;
   const [internalValue, setInternalValue] = useState(defaultValue);
@@ -93,7 +97,9 @@ export const SearchInput = ({
         !showButton && className
       )}
     >
-      {!showButton && <Search className="vi-search-input__search-icon" aria-hidden="true" />}
+      {!showButton && cloneElement(searchIcon, {
+        className: cn("vi-search-input__search-icon", searchIcon.props.className),
+      })}
 
       <input
         ref={inputRef}
@@ -127,7 +133,7 @@ export const SearchInput = ({
           onClick={handleClear}
           aria-label="Clear search"
         >
-          <X aria-hidden="true" />
+          {clearIcon}
         </button>
       )}
     </div>
@@ -144,7 +150,7 @@ export const SearchInput = ({
         disabled={disabled}
         aria-label="Search"
       >
-        <Search aria-hidden="true" />
+        {searchIcon}
       </Button>
     </div>
   );

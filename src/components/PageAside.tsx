@@ -69,6 +69,7 @@ interface PageAsideProps {
   footer?: (open: boolean) => React.ReactNode
   openWidth?: string
   className?: string
+  toggleIcon?: (open: boolean) => React.ReactNode
 }
 
 const PageAside = ({
@@ -79,6 +80,9 @@ const PageAside = ({
   footer,
   openWidth = 'w-44',
   className,
+  toggleIcon = (isOpen) => isOpen
+    ? <ChevronLeft className="h-4 w-4" />
+    : <ChevronRight className="h-4 w-4" />,
 }: PageAsideProps) => {
   const toggleable = open !== undefined && onToggle !== undefined
   const isOpen = open !== undefined ? open : true
@@ -136,10 +140,7 @@ const PageAside = ({
             title={isOpen ? 'Collapse' : 'Expand'}
             className="vi-aside-toggle-btn"
           >
-            {isOpen
-              ? <ChevronLeft className="h-4 w-4" />
-              : <ChevronRight className="h-4 w-4" />
-            }
+            {toggleIcon(isOpen)}
           </Button>
         </div>
       )}
