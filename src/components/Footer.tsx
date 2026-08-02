@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { LogoLink, Link } from "@/components/ui/link";
 import type { Link as LinkType, LogoLinkProps } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
@@ -9,13 +10,28 @@ export interface FooterLinkGroup {
 
 interface FooterProps {
   logo?: Omit<LogoLinkProps, "className">;
+  tagline?: string;
   linkGroups?: FooterLinkGroup[];
   copyright?: string;
+  credits?: ReactNode;
+  creditsPosition?: "top" | "bottom";
   className?: string;
 }
 
-export const Footer = ({ logo, linkGroups = [], copyright, className }: FooterProps) => {
+export const Footer = ({
+  logo,
+  tagline,
+  linkGroups = [],
+  copyright,
+  credits,
+  creditsPosition = "bottom",
+  className,
+}: FooterProps) => {
   const hasTop = logo || linkGroups.length > 0;
+  const creditsOnTop = credits && creditsPosition === "top";
+  const creditsOnBottom = credits && creditsPosition === "bottom";
+  const hasBottom = copyright || creditsOnBottom;
+  const hasDivider = hasTop && (hasBottom || creditsOnTop);
 
   return (
     <footer className={cn("vi-footer", className)}>
@@ -25,6 +41,7 @@ export const Footer = ({ logo, linkGroups = [], copyright, className }: FooterPr
             {logo && (
               <div className="vi-footer-logo">
                 <LogoLink {...logo} />
+                {tagline && <p className="vi-footer-tagline">{tagline}</p>}
               </div>
             )}
 
@@ -53,11 +70,14 @@ export const Footer = ({ logo, linkGroups = [], copyright, className }: FooterPr
           </div>
         )}
 
-        {hasTop && copyright && <hr className="vi-footer-divider" />}
+        {creditsOnTop && <div className="vi-footer-credits vi-footer-credits-top">{credits}</div>}
 
-        {copyright && (
+        {hasDivider && <hr className="vi-footer-divider" />}
+
+        {hasBottom && (
           <div className="vi-footer-bottom">
-            <p className="vi-footer-copyright">{copyright}</p>
+            {copyright && <p className="vi-footer-copyright">{copyright}</p>}
+            {creditsOnBottom && <div className="vi-footer-credits">{credits}</div>}
           </div>
         )}
       </div>

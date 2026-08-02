@@ -14,6 +14,10 @@
       @apply flex-shrink-0;
     }
 
+    &-tagline {
+      @apply mt-2 text-sm text-muted-foreground max-w-xs;
+    }
+
     &-nav {
       @apply flex flex-wrap gap-10;
     }
@@ -45,6 +49,14 @@
 
     &-copyright {
       @apply text-sm text-muted-foreground;
+    }
+
+    &-credits {
+      @apply text-sm text-muted-foreground;
+    }
+
+    &-credits-top {
+      @apply mt-8 w-full;
     }
   }
 }

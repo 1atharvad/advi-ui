@@ -52,8 +52,11 @@ Site footer with an optional logo, grouped navigation columns, and a copyright b
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | \`logo\` | \`LogoLinkProps\` | — | Logo shown in the top-left of the footer |
+| \`tagline\` | \`string\` | — | Short text rendered under the logo |
 | \`linkGroups\` | \`FooterLinkGroup[]\` | \`[]\` | Array of \`{ title?, links[] }\` columns |
 | \`copyright\` | \`string\` | — | Text rendered below the divider |
+| \`credits\` | \`ReactNode\` | — | Attribution content (e.g. "Built by ...") |
+| \`creditsPosition\` | \`"top" \\| "bottom"\` | \`"bottom"\` | \`"bottom"\` places credits next to copyright; \`"top"\` renders it as its own full-width row above the divider |
         `.trim(),
       },
     },
@@ -70,6 +73,58 @@ export const Default: Story = {
     },
   },
   args: { logo, linkGroups, copyright },
+};
+
+export const WithTagline: Story = {
+  parameters: {
+    docs: {
+      description: { story: "Logo with a short tagline underneath, alongside link columns." },
+    },
+  },
+  args: { logo, tagline: "Accessible React components for shadcn/ui + Tailwind.", linkGroups, copyright },
+};
+
+export const WithCredits: Story = {
+  parameters: {
+    docs: {
+      description: { story: "Copyright and credits shown side by side in the bottom bar." },
+    },
+  },
+  args: {
+    logo,
+    linkGroups,
+    copyright,
+    credits: (
+      <>
+        Built with{" "}
+        <a href="https://github.com" className="underline hover:text-foreground">
+          advi-ui
+        </a>
+      </>
+    ),
+  },
+};
+
+export const WithCreditsOnTop: Story = {
+  parameters: {
+    docs: {
+      description: { story: "Credits shown as their own row above the divider, instead of next to copyright." },
+    },
+  },
+  args: {
+    logo,
+    linkGroups,
+    copyright,
+    creditsPosition: "top",
+    credits: (
+      <>
+        Built with{" "}
+        <a href="https://github.com" className="underline hover:text-foreground">
+          advi-ui
+        </a>
+      </>
+    ),
+  },
 };
 
 export const LogoOnly: Story = {
