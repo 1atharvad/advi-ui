@@ -4,6 +4,14 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.5.1] — 2026-08-02
+
+### Patch Changes
+
+- 65c4a47: Mark `lucide-react` as an optional peer dependency (`peerDependenciesMeta`). It's already bundled directly into advi-ui's build output (not externalized by Vite), so it was never actually required in a consumer's `node_modules` for the default icons to render — the `peerDependency` declaration was just causing unnecessary install warnings/failures for anyone who didn't happen to have it installed.
+
+---
+
 ## [0.5.0] — 2026-08-02
 
 ### Minor Changes
