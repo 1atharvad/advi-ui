@@ -1,0 +1,45 @@
+@use "./ui/accordion.scss";
+@use "./ui/badge.scss";
+@use "./ui/button.scss";
+@use "./ui/card.scss";
+@use "./ui/checkbox.scss";
+@use "./ui/form-field.scss";
+@use "./ui/link.scss";
+@use "./ui/menu.scss";
+@use "./ui/modal.scss";
+@use "./ui/multi-select.scss";
+@use "./ui/radio.scss";
+@use "./ui/select.scss";
+@use "./ui/switch.scss";
+@use "./ui/table.scss";
+@use "./ui/tabs.scss";
+@use "./ui/toast.scss";
+@use "./components/circular-progress-bar.scss";
+@use "./components/search-input.scss";
+@use "./components/footer.scss";
+@use "./components/header.scss";
+@use "./components/hover-popup.scss";
+@use "./components/page-aside.scss";
+@use "./components/page-not-found.scss";
+@use "./components/scroll-animation-btn.scss";
+@use "./components/year-dot-nav.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-raleway;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+.sbdocs-preview {
+  background-color: hsl(var(--background)) !important;
+}

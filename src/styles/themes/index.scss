@@ -1,6 +1,0 @@
-// Entry point for theme exports
-// SCSS consumers: @use 'advi-ui/themes' to get palette + tokens
-// CSS consumers: import 'advi-ui/themes' to get CSS custom properties
-
-@forward "palette";   // re-exports $teal-*, $orange-* variables
-@use "tokens";        // emits :root { --advi-color-* } to CSS output

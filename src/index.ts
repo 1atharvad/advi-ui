@@ -1,6 +1,6 @@
 // Styles
-import './styles/themes/index.scss';
-import './styles/global.scss';
+import './styles/base.scss';
+import './styles/themes/default/index.scss';
 
 // Utils
 export * from './lib/utils';

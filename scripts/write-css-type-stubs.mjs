@@ -11,6 +11,12 @@ import path from "node:path";
 const rootDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const distDir = path.join(rootDir, "dist");
 
-for (const name of ["advi-ui.css.d.ts", "fonts.d.ts"]) {
+for (const name of [
+  "advi-ui.css.d.ts",
+  "fonts.d.ts",
+  "base.css.d.ts",
+  "theme-default.css.d.ts",
+  "theme-midnight.css.d.ts",
+]) {
   writeFileSync(path.join(distDir, name), "export {};\n");
 }

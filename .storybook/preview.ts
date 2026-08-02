@@ -1,7 +1,8 @@
 import '@fontsource/raleway';
 import '@fontsource/unbounded';
 import '@fontsource/rubik';
-import '../src/styles/global.scss';
+import '../src/styles/base.scss';
+import '../src/styles/themes/default/index.scss';
 import type { Preview } from '@storybook/react-vite';
 import { withThemeByClassName } from '@storybook/addon-themes';
 import { adviDocsTheme } from './theme';

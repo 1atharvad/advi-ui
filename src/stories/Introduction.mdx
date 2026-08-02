@@ -14,9 +14,12 @@ npm install advi-ui
 
 ```ts
 import { Button, ToastProvider, Header } from 'advi-ui';
-import 'advi-ui/styles';
+import 'advi-ui/base';          // component styles + Tailwind base, no colors
+import 'advi-ui/theme/default'; // a built-in theme — or bring your own, see Theming below
 import 'advi-ui/fonts'; // optional — self-hosted Raleway, Unbounded, Rubik
 ```
+
+`advi-ui/styles` still works as a single import equal to `base` + `theme/default`, for anyone who doesn't need a different theme.
 
 ## Components
 
@@ -26,14 +29,17 @@ import 'advi-ui/fonts'; // optional — self-hosted Raleway, Unbounded, Rubik
 
 ## Theming
 
-Ships a dark teal → burnished orange design token system.
+Every component reads color only through a fixed set of semantic CSS
+variables (`--popover`, `--muted-foreground`, etc.) — never a hardcoded
+value. `advi-ui/base` carries no colors at all; you supply them by
+importing a theme:
 
-```scss
-@use 'advi-ui/themes/palette' as advi;
+| Import | Description |
+|---|---|
+| `advi-ui/theme/default` | Stock shadcn zinc/slate palette. Supports `.dark` class toggle. |
+| `advi-ui/theme/midnight` | Dark teal surfaces, burnt-orange accent. Single-mode (no `.dark` variant). |
 
-.element {
-  color: advi.$orange-500;
-}
-```
-
-Or via CSS custom properties after importing `advi-ui/themes`.
+Or skip both and define the same variables yourself in a `:root` block —
+see [THEMING.md](https://github.com/1atharvad/advi-ui/blob/main/THEMING.md)
+in the repo for the full variable contract and value format (HSL triplet,
+no `hsl()` wrapper).

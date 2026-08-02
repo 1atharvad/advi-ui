@@ -63,7 +63,8 @@ Import components and styles once at the root of your app:
 
 ```tsx
 import { Button } from "advi-ui";
-import "advi-ui/styles";
+import "advi-ui/base";          // component styles + Tailwind base, no colors
+import "advi-ui/theme/default"; // a built-in color theme — or supply your own, see THEMING.md
 import "advi-ui/fonts"; // optional — self-hosted Raleway, Unbounded, Rubik
 
 export default function App() {
@@ -71,10 +72,15 @@ export default function App() {
 }
 ```
 
-The style import brings in:
-- All component styles (SCSS, BEM `vi-*` namespace)
-- CSS custom properties for light and dark mode
-- Tailwind base layer
+`advi-ui/base` brings in all component styles (SCSS, BEM `vi-*` namespace)
+and the Tailwind base layer — no color values. Colors come from a separate
+theme import: `advi-ui/theme/default` (stock shadcn palette) or
+`advi-ui/theme/midnight` (dark teal + burnt orange), or your own `:root`
+block defining the same variables. See [THEMING.md](./THEMING.md) for the
+full variable contract and how to build a custom theme.
+
+`advi-ui/styles` still works as a single import equal to `base` +
+`theme/default`, for existing consumers who don't need a different theme.
 
 The fonts import is separate and optional — it's a small CSS file (`@font-face` declarations with `unicode-range`), so the browser only downloads the specific weight/subset files it actually needs for the text on the page, not the whole font family. Skip it if you'd rather supply your own fonts or use `font-raleway`/`font-unbounded`/`font-rubik` Tailwind classes with fonts you already load.
 
@@ -109,7 +115,7 @@ document.documentElement.classList.toggle("dark");
 
 ## Design Tokens
 
-All colors and typography are defined as CSS custom properties in `src/styles/global.scss` and override-able via the `.dark` class. SCSS variables live in `src/styles/_variables.scss`.
+All colors are semantic CSS custom properties, supplied by a theme import and override-able via the `.dark` class — see [THEMING.md](./THEMING.md) for the full contract.
 
 ### Fonts
 

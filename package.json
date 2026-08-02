@@ -20,11 +20,18 @@
       "types": "./dist/advi-ui.css.d.ts",
       "default": "./dist/advi-ui.css"
     },
-    "./themes": {
-      "types": "./dist/advi-ui.css.d.ts",
-      "default": "./dist/advi-ui.css"
+    "./base": {
+      "types": "./dist/base.css.d.ts",
+      "default": "./dist/base.css"
     },
-    "./themes/palette": "./src/styles/themes/_palette.scss",
+    "./theme/default": {
+      "types": "./dist/theme-default.css.d.ts",
+      "default": "./dist/theme/default.css"
+    },
+    "./theme/midnight": {
+      "types": "./dist/theme-midnight.css.d.ts",
+      "default": "./dist/theme/midnight.css"
+    },
     "./fonts": {
       "types": "./dist/fonts.d.ts",
       "default": "./dist/fonts.css"
@@ -39,7 +46,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:lib": "tsc -b && vite build --mode production && node scripts/build-fonts.mjs && node scripts/write-css-type-stubs.mjs",
+    "build:lib": "tsc -b && vite build --mode production && vite build --mode production --config vite.styles.config.ts && node scripts/build-fonts.mjs && node scripts/write-css-type-stubs.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -59,6 +66,11 @@
     {
       "name": "advi-ui.css",
       "path": "dist/advi-ui.css",
+      "limit": "20 KB"
+    },
+    {
+      "name": "base.css",
+      "path": "dist/base.css",
       "limit": "20 KB"
     },
     {
