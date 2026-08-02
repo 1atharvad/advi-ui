@@ -13,9 +13,9 @@ export default defineConfig({
     cssCodeSplit: true,
     rollupOptions: {
       input: {
-        base: path.resolve(__dirname, "src/styles/base.scss"),
-        "theme/default": path.resolve(__dirname, "src/styles/themes/default/index.scss"),
-        "theme/midnight": path.resolve(__dirname, "src/styles/themes/midnight/index.scss"),
+        base: path.resolve(import.meta.dirname, "src/styles/base.scss"),
+        "theme/default": path.resolve(import.meta.dirname, "src/styles/themes/default/index.scss"),
+        "theme/midnight": path.resolve(import.meta.dirname, "src/styles/themes/midnight/index.scss"),
       },
       output: {
         assetFileNames: "[name].css",
