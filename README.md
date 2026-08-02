@@ -53,7 +53,7 @@ yarn add advi-ui
 pnpm add advi-ui
 ```
 
-> **Peer dependencies** — make sure your project has `react >= 18`, `react-dom >= 18`, `gsap`, and `lucide-react` installed.
+> **Peer dependencies** — make sure your project has `react >= 18`, `react-dom >= 18`, and `gsap` installed. `lucide-react` is bundled into advi-ui's build already, so it's an optional peer dependency — install it yourself only if you want to construct your own lucide icons (e.g. for icon-override props) with matching types.
 
 ---
 
@@ -94,7 +94,8 @@ document.documentElement.classList.toggle("dark");
 
 ### Icons
 
-Components ship with [lucide-react](https://lucide.dev) icons by default. Any
+Components ship with [lucide-react](https://lucide.dev) icons by default —
+bundled into advi-ui's build, so nothing extra to install for the defaults. Any
 component with a built-in icon (`Header`, `PageAside`, `SearchInput`,
 `Select`, `MultiSelect`, `Modal`, `Dialog`) accepts icon-override props — pass
 your own element from any icon library (Phosphor, Radix Icons, Heroicons,
