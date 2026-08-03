@@ -4,6 +4,20 @@ All notable changes to **advi-ui** are documented here.
 
 ---
 
+## [0.7.0] — 2026-08-03
+
+### Minor Changes
+
+- 0a843d9: Add `AsideDrawer`, a `PageAside` pre-wired into `Modal` (`vi-modal-slide-left` variant) for mobile off-canvas navigation — pass `open`/`onOpenChange`/`trigger` in place of `PageAside`'s own `open`/`onToggle`, and it forwards every other `PageAside` prop. Pair it with a plain `PageAside` for the desktop static sidebar; visibility at each breakpoint is left to your own CSS (e.g. `hidden md:flex` on the desktop instance).
+
+  The drawer also auto-closes when the viewport crosses into desktop width (`min-width: 768px` by default, configurable via `closeBreakpoint`) while open, so it can't get stuck open behind a hidden trigger after a resize.
+
+### Patch Changes
+
+- 9280ba6: Pin `storybook` and all `@storybook/*`/`eslint-plugin-storybook` devDependencies to exact `10.3.5` (previously `^10.3.5`, which had silently drifted to `10.5.5` via a routine `npm install`). Storybook `10.4.x`/`10.5.x` regressed dependency pre-bundling for `@storybook/addon-vitest`'s virtual `project-annotations` module — packages only reachable through it (`aria-query`, `lz-string`, `pretty-format`, ...) stopped being picked up by Vite's CJS/ESM interop and were served raw to the browser, breaking every story test at import time (`does not provide an export named ...`). Devtooling only, no runtime effect on consumers.
+
+---
+
 ## [0.6.0] — 2026-08-02
 
 ### Minor Changes
