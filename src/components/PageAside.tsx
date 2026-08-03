@@ -1,5 +1,6 @@
 import React from "react"
 import { Button } from "@/components/ui/button"
+import { Modal } from "@/components/ui/modal"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -149,4 +150,47 @@ const PageAside = ({
 }
 PageAside.displayName = "PageAside"
 
-export { PageAside, AsideBtn, AsideText }
+interface AsideDrawerProps extends Omit<PageAsideProps, 'open' | 'onToggle'> {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  trigger: React.ReactNode
+  modalClassName?: string
+  closeBreakpoint?: string
+}
+
+const AsideDrawer = ({
+  open,
+  onOpenChange,
+  trigger,
+  modalClassName,
+  closeBreakpoint = '(min-width: 768px)',
+  ...pageAsideProps
+}: AsideDrawerProps) => {
+  React.useEffect(() => {
+    if (!open) return
+    const mql = window.matchMedia(closeBreakpoint)
+    if (mql.matches) {
+      onOpenChange(false)
+      return
+    }
+    const onChange = (e: MediaQueryListEvent) => {
+      if (e.matches) onOpenChange(false)
+    }
+    mql.addEventListener('change', onChange)
+    return () => mql.removeEventListener('change', onChange)
+  }, [open, onOpenChange, closeBreakpoint])
+
+  return (
+    <Modal
+      open={open}
+      onOpenChange={onOpenChange}
+      trigger={trigger}
+      className={cn('vi-modal-slide-left vi-aside-modal', modalClassName)}
+    >
+      <PageAside {...pageAsideProps} />
+    </Modal>
+  )
+}
+AsideDrawer.displayName = "AsideDrawer"
+
+export { PageAside, AsideDrawer, AsideBtn, AsideText }

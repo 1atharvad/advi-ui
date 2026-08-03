@@ -78,4 +78,21 @@
       @apply text-muted-foreground my-1;
     }
   }
+
+  // Used by `AsideDrawer` — shrinks the modal panel to hug the `PageAside`
+  // inside it (instead of the default `w-full max-w-sm`) and strips the
+  // modal's own padding so the aside fills the panel edge to edge.
+  .vi-aside-modal {
+    @apply p-0 w-auto max-w-none overflow-hidden;
+
+    .vi-modal-body {
+      @apply p-0 h-full;
+    }
+
+    // `PageAside` is `position: sticky`; without an explicit z-index here it
+    // paints over the close button (both are positioned, later DOM order wins).
+    .vi-modal-close {
+      @apply z-10;
+    }
+  }
 }
