@@ -2,6 +2,9 @@
 import './styles/base.scss';
 import './styles/themes/default/index.scss';
 
+// Theme
+export * from './theme';
+
 // Utils
 export * from './lib/utils';
 

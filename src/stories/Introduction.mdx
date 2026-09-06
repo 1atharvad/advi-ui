@@ -13,13 +13,23 @@ npm install advi-ui
 ```
 
 ```ts
-import { Button, ToastProvider, Header } from 'advi-ui';
-import 'advi-ui/base';          // component styles + Tailwind base, no colors
-import 'advi-ui/theme/default'; // a built-in theme — or bring your own, see Theming below
+import { Button, ThemeProvider, ToastProvider, Header } from 'advi-ui';
+import 'advi-ui/base';  // component styles + Tailwind base, no colors
 import 'advi-ui/fonts'; // optional — self-hosted Raleway, Unbounded, Rubik
 ```
 
-`advi-ui/styles` still works as a single import equal to `base` + `theme/default`, for anyone who doesn't need a different theme.
+```tsx
+<ThemeProvider theme="default" mode="system">
+  <Button variant="outline">Hello</Button>
+</ThemeProvider>
+```
+
+`advi-ui/base` carries no colors — `ThemeProvider` supplies them, with
+runtime switching via `useTheme().setTheme`/`setMode` and support for
+registering your own themes. See Theming below, or skip `ThemeProvider`
+and use a plain CSS theme import instead (`advi-ui/styles` still works as
+a single import equal to `base` + `theme/default`, for anyone who doesn't
+need `ThemeProvider`).
 
 ## Components
 
@@ -31,18 +41,19 @@ import 'advi-ui/fonts'; // optional — self-hosted Raleway, Unbounded, Rubik
 
 Every component reads color only through a fixed set of semantic CSS
 variables (`--popover`, `--muted-foreground`, etc.) — never a hardcoded
-value. `advi-ui/base` carries no colors at all; you supply them by
-importing a theme:
+value. Modes are fixed (`light`/`dark`/`system`); a theme just supplies a
+palette for either or both:
 
-| Import | Description |
+| Theme | Description |
 |---|---|
-| `advi-ui/theme/default` | Stock shadcn zinc/slate palette. Supports `.dark` class toggle. |
-| `advi-ui/theme/midnight` | Dark teal surfaces, burnt-orange accent. Single-mode (no `.dark` variant). |
+| `"default"` | Stock shadcn zinc/slate palette. `light` + `dark`. |
+| `"midnight"` | Dark teal surfaces, burnt-orange accent. `dark` only — `light` falls back to `"default"`'s. |
 
-Or skip both and define the same variables yourself in a `:root` block —
+Register your own via `ThemeProvider`'s `themes` prop, or skip it and
+define the same variables yourself in a `:root` block (CSS-only path) —
 see [THEMING.md](https://github.com/1atharvad/advi-ui/blob/main/THEMING.md)
-in the repo for the full variable contract and value format (HSL triplet,
-no `hsl()` wrapper).
+in the repo for the full `ThemeProvider` API, the variable contract, and
+value format (HSL triplet, no `hsl()` wrapper).
 
 ## Icons
 

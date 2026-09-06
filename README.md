@@ -59,38 +59,49 @@ pnpm add advi-ui
 
 ## Usage
 
-Import components and styles once at the root of your app:
+Import components and structural styles once at the root of your app,
+then supply a theme — either via React (`ThemeProvider`, recommended for
+runtime switching) or a plain CSS import:
 
 ```tsx
-import { Button } from "advi-ui";
-import "advi-ui/base";          // component styles + Tailwind base, no colors
-import "advi-ui/theme/default"; // a built-in color theme — or supply your own, see THEMING.md
+import { Button, ThemeProvider } from "advi-ui";
+import "advi-ui/base";  // component styles + Tailwind base, no colors
 import "advi-ui/fonts"; // optional — self-hosted Raleway, Unbounded, Rubik
 
 export default function App() {
-  return <Button variant="outline">Hello</Button>;
+  return (
+    <ThemeProvider theme="default" mode="system">
+      <Button variant="outline">Hello</Button>
+    </ThemeProvider>
+  );
 }
 ```
 
 `advi-ui/base` brings in all component styles (SCSS, BEM `vi-*` namespace)
-and the Tailwind base layer — no color values. Colors come from a separate
-theme import: `advi-ui/theme/default` (stock shadcn palette) or
-`advi-ui/theme/midnight` (dark teal + burnt orange), or your own `:root`
-block defining the same variables. See [THEMING.md](./THEMING.md) for the
-full variable contract and how to build a custom theme.
+and the Tailwind base layer — no color values; a theme supplies those.
+`ThemeProvider` ships two built-in themes (`"default"`, `"midnight"`),
+supports runtime switching (`useTheme().setTheme`/`setMode`), and lets you
+register your own via its `themes` prop — see [THEMING.md](./THEMING.md)
+for the full API, the variable contract, and the CSS-only alternative
+(`advi-ui/theme/default`, `advi-ui/theme/midnight`, or your own `:root`
+block) for non-React or SSR-sensitive consumers.
 
-`advi-ui/styles` still works as a single import equal to `base` +
-`theme/default`, for existing consumers who don't need a different theme.
+`advi-ui/styles` still works as a single CSS import equal to `base` +
+`theme/default`, for existing consumers who don't need `ThemeProvider`.
 
 The fonts import is separate and optional — it's a small CSS file (`@font-face` declarations with `unicode-range`), so the browser only downloads the specific weight/subset files it actually needs for the text on the page, not the whole font family. Skip it if you'd rather supply your own fonts or use `font-raleway`/`font-unbounded`/`font-rubik` Tailwind classes with fonts you already load.
 
 ### Dark mode
 
-Add the `dark` class to your `<html>` element to activate dark mode:
+With `ThemeProvider`, pass `mode="dark"` (or `"light"`/`"system"`, the
+default) — switch it at runtime with `useTheme().setMode(...)`. Without
+it (the CSS-only path), toggle the `dark` class on `<html>` yourself:
 
 ```ts
 document.documentElement.classList.toggle("dark");
 ```
+
+See [THEMING.md](./THEMING.md) for the full `ThemeProvider` API.
 
 ### Icons
 
@@ -143,7 +154,7 @@ element you pass, so overrides don't need to replicate the built-in classes.
 
 ## Design Tokens
 
-All colors are semantic CSS custom properties, supplied by a theme import and override-able via the `.dark` class — see [THEMING.md](./THEMING.md) for the full contract.
+All colors are semantic CSS custom properties, supplied via `ThemeProvider` or a theme import, and switchable between light/dark (and any custom theme) at runtime — see [THEMING.md](./THEMING.md) for the full contract.
 
 ### Fonts
 
